@@ -1,0 +1,31 @@
+!SESSION 2016-01-08 01:25:13.102 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product -keyring /Users/pannrays/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.jee.product -data /Users/pannrays/IBM Project/InnovationAdminOnGit -product org.eclipse.epp.package.jee.product -keyring /Users/pannrays/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.jface 2 0 2016-01-08 01:25:24.143
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2016-01-08 01:25:24.143
+!MESSAGE A conflict occurred for COMMAND+SHIFT+-:
+Binding(COMMAND+SHIFT+-,
+	ParameterizedCommand(Command(com.ibm.etools.rpe.ZoomOut,ZoomOut,
+		,
+		Category(com.ibm.etools.rpe.category,Rich Page Editor,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@77f5c1c7,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+-,
+	ParameterizedCommand(Command(org.eclipse.ui.window.splitEditor,Toggle Split Editor,
+		Split or join the currently active editor.,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@27852d58,
+		[Lorg.eclipse.e4.ui.internal.workbench.Parameter;@186400ad,,true),[Lorg.eclipse.core.commands.Parameterization;@4d686a5d),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,cocoa,system)
+
+!ENTRY org.eclipse.ui 4 4 2016-01-08 01:25:25.700
+!MESSAGE Referenced part does not exist yet: com.ibm.etools.ui.navigator.SDExplorer.
