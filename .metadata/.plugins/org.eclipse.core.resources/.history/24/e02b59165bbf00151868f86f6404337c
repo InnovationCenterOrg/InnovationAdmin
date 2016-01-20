@@ -48,7 +48,6 @@ public class ProfileUserManager {
 				log.info("FOUND User");
 				user = new ProfileUserModel();
 				user.setProId(result.getInt("pro_id"));
-				user.setProTitle(result.getString("pro_title"));
 				user.setProFirstName(result.getString("pro_firstname"));
 				user.setProLastName(result.getString("pro_lastname"));
 				user.setProFullName(result.getString("pro_fullname"));
@@ -73,26 +72,26 @@ public class ProfileUserManager {
 		
 	}
 	
-	public String createNewProfileUser(String proTitle, String proFirstName, String proLastName, String proFullName, String proCompanyName, String proContactNo, String proEmail, String proUsername, String proPassword, String proRole){
+	public String createNewProfileUser(String proFirstName, String proLastName, String proFullName, String proCompanyName, String proContactNo, String proEmail, String proUsername, String proPassword, String proRole){
 		
 		ProfileUserModel profile = null;
 		
-		String sql = "insert into profile_user (pro_title, pro_firstname, pro_lastname, pro_fullname, pro_company_name, pro_contact_no, pro_email, pro_username, pro_password, pro_role, pro_create_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into profile_user (pro_firstname, pro_lastname, pro_fullname, pro_company_name, pro_contact_no, pro_email, pro_username, pro_password, pro_role, pro_create_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try{
 			log.info("START Create New ProfileUser");
 			connection = ds.getConnection();
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, proTitle.toUpperCase());
-			pstmt.setString(2, proFirstName.toUpperCase());
-			pstmt.setString(3, proLastName.toUpperCase());
-			pstmt.setString(4, proFullName.toUpperCase());
-			pstmt.setString(5, proCompanyName.toUpperCase());
-			pstmt.setString(6, proContactNo);
-			pstmt.setString(7, proEmail);
-			pstmt.setString(8, proUsername);
-			pstmt.setString(9, proPassword);
-			pstmt.setString(10, proRole);
-			pstmt.setString(11, dateFormat.format(new Date()));
+			
+			pstmt.setString(1, proFirstName.toUpperCase());
+			pstmt.setString(2, proLastName.toUpperCase());
+			pstmt.setString(3, proFullName.toUpperCase());
+			pstmt.setString(4, proCompanyName.toUpperCase());
+			pstmt.setString(5, proContactNo);
+			pstmt.setString(6, proEmail);
+			pstmt.setString(7, proUsername);
+			pstmt.setString(8, proPassword);
+			pstmt.setString(9, proRole);
+			pstmt.setString(10, dateFormat.format(new Date()));
 			
 			log.info("STATEMENT : "+pstmt.toString());
 			
@@ -116,22 +115,20 @@ public class ProfileUserManager {
 		
 	}
 	
-	public String updateProfileUserById(String proTitle, Integer proId, String proFirstName, String proLastName, String proFullName, String proCompanyName, String proContactNo, String proEmail, String proUsername, String proPassword){
-		String sql = "update profile_user set pro_title=?, pro_firstname=?, pro_lastname=?, pro_fullname=?, pro_company_name=?, pro_contact_no=?, pro_email=?, pro_username=?, pro_password=? where pro_id=?";
+	public String updateProfileUserById(Integer proId, String proFirstName, String proLastName, String proFullName, String proCompanyName, String proContactNo, String proEmail, String proUsername, String proPassword){
+		String sql = "update profile_user set pro_firstname=?, pro_lastname=?, pro_fullname=?, pro_company_name=?, pro_contact_no=?, pro_email=?, pro_username=?, pro_password=? where pro_id=?";
 		try{
 			connection = ds.getConnection();
 			pstmt = connection.prepareStatement(sql);
-			
-			pstmt.setString(1, proTitle.toUpperCase());
-			pstmt.setString(2, proFirstName.toUpperCase());
-			pstmt.setString(3, proLastName.toUpperCase());
-			pstmt.setString(4, proFullName.toUpperCase());
-			pstmt.setString(5, proCompanyName.toUpperCase());
-			pstmt.setString(6, proContactNo);
-			pstmt.setString(7, proEmail);
-			pstmt.setString(8, proUsername);
-			pstmt.setString(9, proPassword);
-			pstmt.setInt(10, proId.intValue());
+			pstmt.setString(1, proFirstName.toUpperCase());
+			pstmt.setString(2, proLastName.toUpperCase());
+			pstmt.setString(3, proFullName.toUpperCase());
+			pstmt.setString(4, proCompanyName.toUpperCase());
+			pstmt.setString(5, proContactNo);
+			pstmt.setString(6, proEmail);
+			pstmt.setString(7, proUsername);
+			pstmt.setString(8, proPassword);
+			pstmt.setInt(9, proId.intValue());
 			
 			int result = pstmt.executeUpdate();
 			
@@ -166,7 +163,6 @@ public class ProfileUserManager {
 				
 				user = new ProfileUserModel();
 				user.setProId(result.getInt("pro_id"));
-				user.setProTitle(result.getString("pro_title"));
 				user.setProFirstName(result.getString("pro_firstname"));
 				user.setProLastName(result.getString("pro_lastname"));
 				user.setProFullName(result.getString("pro_fullname"));
