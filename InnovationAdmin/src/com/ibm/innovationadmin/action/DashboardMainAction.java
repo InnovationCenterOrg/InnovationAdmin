@@ -18,20 +18,20 @@ import com.ibm.innovationadmin.manager.AuthenticationManager;
 import com.ibm.innovationadmin.manager.ProfileUserManager;
 import com.ibm.innovationadmin.model.ProfileUserModel;
 
-public class LoginAction extends HttpServlet {
+public class DashboardMainAction extends HttpServlet {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8579213088672797881L;
 
-	//@Resource(lookup = "jdbc/SQL Database-4o")
-	//DataSource ds;
+//	@Resource(lookup = "jdbc/SQL Database-4o")
+//	DataSource ds;
 	
 	@EJB
 	private ProfileUserManager profileUserManager;
 	
-	private static final Logger log = Logger.getLogger(LoginAction.class.getName()); 
+	private static final Logger log = Logger.getLogger(DashboardMainAction.class.getName()); 
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -43,10 +43,11 @@ public class LoginAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("TEST DOPOST");
-	//	ProfileUserModel profile = profileUserManager.getProfileUserById(1);
-//		String forwardUrl = "/home.jsp?test="+profile.getProFullName();
-		String forwardUrl = "/view/event.jsp";
+		
+		String forwardUrl = "/view/dashboard.jsp";
+
 		request.getRequestDispatcher(forwardUrl).forward(request, response);
+		
 	}
 		
 }

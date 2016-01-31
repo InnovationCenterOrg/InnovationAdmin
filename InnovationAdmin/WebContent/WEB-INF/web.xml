@@ -5,15 +5,46 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>InnovationAdmin</display-name>
 	<servlet>
-		<servlet-name>LoginAction</servlet-name>
+	<servlet-name>LoginAction</servlet-name>
 		<servlet-class>com.ibm.innovationadmin.action.LoginAction</servlet-class>
 	</servlet>
-	
+	<servlet>
+	<servlet-name>UserMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.UserMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>EventMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.EventMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>DashboardMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.DashboardMainAction</servlet-class>
+	</servlet>	
+	<servlet>	
+	<servlet-name>ReportMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.ReportMainAction</servlet-class>
+	</servlet>		
 	<servlet-mapping>
 		<servlet-name>LoginAction</servlet-name>
 		<url-pattern>/LoginAction</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>UserMainAction</servlet-name>
+		<url-pattern>/UserMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EventMainAction</servlet-name>
+		<url-pattern>/EventMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>DashboardMainAction</servlet-name>
+		<url-pattern>/DashboardMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>ReportMainAction</servlet-name>
+		<url-pattern>/ReportMainAction</url-pattern>
+	</servlet-mapping>
+				
 	<welcome-file-list>
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
