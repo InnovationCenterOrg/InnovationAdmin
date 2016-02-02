@@ -22,6 +22,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="./EventMainAction">Event</a></li>
+                    <li><a href="./UserMainAction">User</a></li>
                     <li class='active' class="dropdown">
           				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Report <span class="caret"></span></a>
      				    <ul class="dropdown-menu" role="menu">

@@ -44,7 +44,7 @@ public class UserMainAction extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("TEST DOPOST");
 
-		String forwardUrl = "/view/event.jsp";
+		String forwardUrl = "/view/user.jsp";
 
 		request.getRequestDispatcher(forwardUrl).forward(request, response);
 		

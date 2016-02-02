@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
+     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -23,9 +23,8 @@
             
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class='active'><a href="./UserMainAction">User</a></li>
-                    <li><a href="./UserMainAction">User</a></li>
                     <li><a href="./EventMainAction">Event</a></li>
+                    <li class='active'><a href="./UserMainAction">User</a></li>
                     <li class="dropdown">
           				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Report <span class="caret"></span></a>
      				    <ul class="dropdown-menu" role="menu">
@@ -44,6 +43,46 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
+    <div class="container">
+	    <div class='row'>
+	    	<div class='col-sm-9'>
+	        	<h2>User Management</h2>
+	        </div>
+	    </div>
+	    <div class='row'>
+	    	<div class='col-sm-12'>
+	        	<form class="form-inline" method='get' action='./EventMainAction'>
+	               	<input type="text" class="form-control" id="username" name='username' placeholder='Username'></input>
+	                <button type="submit" class='btn btn-primary'>Search</button>
+	            </form>
+	        </div>
+	    </div>
+	    <table class="table table-striped table-hover ">
+	  		<thead>
+	    	<tr>
+	    	  <th>#</th>
+		      <th>Event Name</th>
+		      <th>Column heading</th>
+		      <th>Column heading</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td>1</td>
+		      <td>Column content</td>
+		      <td>Column content</td>
+		      <td>Column content</td>
+		    </tr>
+		    <tr>
+		      <td>2</td>
+		      <td>Column content</td>
+		      <td>Column content</td>
+		      <td>Column content</td>
+		    </tr>
+		  </tbody>
+		</table> 
+	</div>
+
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>
