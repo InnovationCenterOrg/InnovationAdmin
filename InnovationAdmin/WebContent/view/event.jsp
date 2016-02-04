@@ -91,8 +91,8 @@
 									href="${pageContext.request.contextPath}/view/eventDetail.jsp?eventid=${evn.eveId }">View
 									Detail</a>
 							</div></td>
-						<td align="center"><button type="button" name="Gen-QR-Code"
-								class="btn btn-default btn-sm" aria-label="Left Align">
+						<td align="center"><button type="button" name="Gen-QR-Code" id="genQR"
+								class="btn btn-default btn-sm" aria-label="Left Align" data-link="example">
 								<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
 							</button></td>
 						<td align="center"><button type="button"
@@ -117,5 +117,14 @@
 
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+		document.getElementById('genQR').onclick = function() {
+			var button = document.getElementById('genQR');
+			var link = button.data('link');
+		   var url= 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+link;
+		   window.open(url);
+		}
+	</script>
 </body>
 </html>
