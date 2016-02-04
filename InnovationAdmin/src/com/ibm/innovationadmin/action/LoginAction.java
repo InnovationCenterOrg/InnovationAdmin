@@ -45,8 +45,10 @@ public class LoginAction extends HttpServlet {
 		log.info("TEST DOPOST");
 	//	ProfileUserModel profile = profileUserManager.getProfileUserById(1);
 //		String forwardUrl = "/home.jsp?test="+profile.getProFullName();
-		String forwardUrl = "/view/event.jsp";
-		request.getRequestDispatcher(forwardUrl).forward(request, response);
+//		String forwardUrl = "/view/event.jsp";
+//		request.getRequestDispatcher(forwardUrl).forward(request, response);
+		
+		response.sendRedirect("EventMainAction");
 	}
 		
 }

@@ -5,8 +5,8 @@
 <%@include file="includes/meta.jsp"%>
 <title>InnvationAdmin</title>
 <!-- Bootstrap -->
-<link href="css/default.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/default.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  -->
 
@@ -23,7 +23,7 @@
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 	</div>
 </body>
