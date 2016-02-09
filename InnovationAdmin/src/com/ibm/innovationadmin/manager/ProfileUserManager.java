@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -152,6 +154,51 @@ public class ProfileUserManager {
 		
 	}
 	
+	public List<ProfileUserModel> getProfileUserList(String keyword){
+			List<ProfileUserModel> resultList = null;
+			StringBuffer sqlBuffer = new StringBuffer();
+			sqlBuffer.append("select * from profile_user ");
+			if(keyword != null && !keyword.equals("")){
+				sqlBuffer.append("and pro_fullname like ? ");
+			}
+			
+			try{
+				connection = ds.getConnection();
+				pstmt = connection.prepareStatement(sqlBuffer.toString());
+				if(keyword != null && !keyword.equals("")){
+					pstmt.setString(1, "%"+keyword+"%");
+				}
+
+				
+				ResultSet results = pstmt.executeQuery();
+				ProfileUserModel user = null;
+				resultList = new ArrayList();
+				while(results.next()){
+					user = new ProfileUserModel();
+					user.setProId(results.getInt("pro_id"));
+					user.setProTitle(results.getString("pro_title"));
+					user.setProFirstName(results.getString("pro_firstname"));
+					user.setProLastName(results.getString("pro_lastname"));
+					user.setProFullName(results.getString("pro_fullname"));
+					user.setProCompanyName(results.getString("pro_company_name"));
+					user.setProContactNo(results.getString("pro_contact_no"));
+					user.setProEmail(results.getString("pro_email"));
+					user.setProUsername(results.getString("pro_username"));
+					user.setProPassword(results.getString("pro_password"));
+					user.setProRole(results.getString("pro_role"));		
+					resultList.add(user);
+				}
+				connection.close();
+				return resultList;
+				
+			}catch(SQLException e1){
+				log.info("SQL ERROR : "+e1.getMessage());
+			}catch(Exception e2){
+				log.info("ERROR : "+e2.getMessage());
+			}
+			
+			return resultList;
+		}
 	
 	public ProfileUserModel getProfileUserById(Integer proId){
 		ProfileUserModel user = null;
@@ -214,6 +261,34 @@ public class ProfileUserManager {
 			log.info("ERROR : "+e2.getMessage());
 		}
 		return returnresult;
+		
+	}
+	
+	public String changePassword(Integer proId, String proPassword){
+		String sql = "update profile_user set pro_password=? where pro_id=?";
+		try{
+			connection = ds.getConnection();
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setString(1, proPassword);
+			pstmt.setInt(2, proId.intValue());
+			
+			int result = pstmt.executeUpdate();
+			
+			connection.close();
+			
+			if(result > 0){
+				//OK
+				return CommonConstants.RETURN_SUCCESS;
+			}
+			
+		}catch(SQLException e1){
+			log.info("SQL ERROR : "+e1.getMessage());
+		}catch(Exception e2){
+			log.info("ERROR : "+e2.getMessage());
+		}
+		
+		return CommonConstants.RETURN_FAIL;
 		
 	}
 	

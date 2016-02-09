@@ -1,5 +1,6 @@
 <!DOCTYPE HTML><%@page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <title>home</title>
@@ -19,7 +20,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Lucky Draw Admin</a>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/HelloAction">Lucky Draw Admin</a>
 			</div>
 
 			<div id="navbar" class="navbar-collapse collapse">
@@ -57,49 +58,49 @@
 							<td width="10%" bgcolor="#D9D8D8">First Name</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="firstName">Test</div>
+								<div class="col-md-6" id="firstName">${user.proFirstName }</div>
 							</td>
 						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">Last Name</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="lastName">Name</div>
+								<div class="col-md-6" id="lastName">${user.proLastName }</div>
 							</td>
 						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">Company</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="company">IBM</div>
+								<div class="col-md-6" id="company">${user.proCompanyName }</div>
 							</td>
 						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">Contact Number</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="contaceNo">02/01/2016</div>
+								<div class="col-md-6" id="contaceNo">${user.proContactNo }</div>
 							</td>
 						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">Email</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="email">IBM Building</div>
+								<div class="col-md-6" id="email">${user.proEmail }</div>
 							</td>
 						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">Username</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="username">Active</div>
+								<div class="col-md-6" id="username">${user.proUsername }</div>
 							</td>
 						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">Role</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
 							<td width="85%">
-								<div class="col-md-6" id="role">Customer</div>
+								<div class="col-md-6" id="role">${user.proRole }</div>
 							</td>
 						</tr>
 					</table>
@@ -107,12 +108,12 @@
 			<div class='col-md-4 text-center'>
 			</div>
 			<div class='col-md-2 text-center'>
-				<button type="button" class="btn btn-primary btn-block">
+				<button type="button" class="btn btn-primary btn-block" onclick="edit(${user.proId })">
 					<i class="glyphicon glyphicon-pencil"></i> Edit
 				</button>
 			</div>
 			<div class='col-md-2 text-center'>
-				<button type="button" class="btn btn-primary btn-block">
+				<button type="button" class="btn btn-primary btn-block" data-pro-id="${user.proId }" id="resetpwd">
 					<i class="glyphicon glyphicon-random"></i> Reset Password
 				</button>
 			</div>
@@ -120,8 +121,38 @@
 			</div>
 		</div>
 	</div>
-
+	<form action="" method="Post" id="frm">
+		<input type="hidden" name="actionType" id="actionType" value="">
+		<input type="hidden" name="proId" id="proId" value=""> 
+	</form>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var msg = '${msg}'
+			console.log(msg);
+			if(msg){
+				alert('Reset password complete. Default password is '+msg+'.');
+			}
+		};
+	
+		$('#resetpwd').click(function() {
+			var proId = $(this).data('pro-id');
+			var frm = document.getElementById('frm');
+			document.getElementById('proId').value = proId;
+			document.getElementById('actionType').value='resetpwd';
+			if(confirm('Are you sure want to reset password.')){
+				frm.submit();
+			}
+		});
+		
+		function edit(proId){
+			console.log(evnid);
+			var frm = document.getElementById('frm');
+			document.getElementById('proId').value = proId;
+			document.getElementById('actionType').value='redirectEdit';
+			frm.submit();
+		}
+	</script>
 </body>
 </html>

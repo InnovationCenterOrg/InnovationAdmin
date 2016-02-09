@@ -9,12 +9,24 @@
 		<servlet-class>com.ibm.innovationadmin.action.LoginAction</servlet-class>
 	</servlet>
 	<servlet>
+	<servlet-name>HelloAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.HelloAction</servlet-class>
+	</servlet>
+	<servlet>
 	<servlet-name>UserMainAction</servlet-name>
 		<servlet-class>com.ibm.innovationadmin.action.UserMainAction</servlet-class>
 	</servlet>
 	<servlet>
+	<servlet-name>UserDetailAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.UserDetailAction</servlet-class>
+	</servlet>
+	<servlet>
 	<servlet-name>EventMainAction</servlet-name>
 		<servlet-class>com.ibm.innovationadmin.action.EventMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>EventDetailAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.EventDetailAction</servlet-class>
 	</servlet>
 	<servlet>
 	<servlet-name>DashboardMainAction</servlet-name>
@@ -29,12 +41,24 @@
 		<url-pattern>/LoginAction</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>HelloAction</servlet-name>
+		<url-pattern>/HelloAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>UserMainAction</servlet-name>
 		<url-pattern>/UserMainAction</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>UserDetailAction</servlet-name>
+		<url-pattern>/UserDetailAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>EventMainAction</servlet-name>
 		<url-pattern>/EventMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EventDetailAction</servlet-name>
+		<url-pattern>/EventDetailAction</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 	<servlet-name>DashboardMainAction</servlet-name>

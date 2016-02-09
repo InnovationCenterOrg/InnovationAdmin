@@ -24,7 +24,7 @@ import com.ibm.innovationadmin.manager.EventManager;
 import com.ibm.innovationadmin.model.ProfileUserModel;
 import com.ibm.innovationadmin.model.EventModel;
 
-public class EventMainAction extends HttpServlet {
+public class EventDetailAction extends HttpServlet {
 	
 	/**
 	 * 
@@ -40,22 +40,18 @@ public class EventMainAction extends HttpServlet {
 	@EJB
 	private EventManager evnManager;
 	
-	private static final Logger log = Logger.getLogger(EventMainAction.class.getName()); 
-	private static final String eventMainPage = "/view/event.jsp";
+	private static final Logger log = Logger.getLogger(EventDetailAction.class.getName()); 
 	private static final String editPage = "/view/editEvent.jsp";
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		doPost(request,response);
 		log.info("TEST DOGET");
-		String eveName = request.getParameter("keyword"); 
-//		int page = 1;
-//		if(request.getParameter("page") != null){
-//			page = Integer.parseInt(request.getParameter("page"));
-//		}
-		List<EventModel> evnList = evnManager.getEventList(eveName, null, null);
-		request.setAttribute("evnList", evnList);
-		request.getRequestDispatcher(eventMainPage).forward(request, response);
+		int eveId = Integer.parseInt(request.getParameter("eventid"));
+		EventModel event = evnManager.getEventById(eveId);
+		List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
+		request.setAttribute("event", event);
+		request.setAttribute("userList", userList);
+		request.getRequestDispatcher("/view/eventDetail.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request,
@@ -63,16 +59,17 @@ public class EventMainAction extends HttpServlet {
 		log.info("TEST DOPOST");
 		
 		String actionType = request.getParameter("actionType");
-		if(actionType.equals("delete")){
-			int eveId = Integer.parseInt(request.getParameter("eventId"));
-			evnManager.deleteEvent(eveId);
-			doGet(request, response);
-		}else if(actionType.equals("redirectAdd")){
-			request.setAttribute("type", "Add");
+		
+		if(actionType.equals("redirectEdit")){
+			EventModel event = evnManager.getEventById(Integer.parseInt(request.getParameter("eventId")));
+			request.setAttribute("event", event);
+			request.setAttribute("type", "Edit");
 			request.getRequestDispatcher(editPage).forward(request, response);
-		}else if(actionType.equals("add")){
+		}else if(actionType.equals("edit")){
+			int eventId = Integer.parseInt(request.getParameter("eventid"));
 			String eventName = request.getParameter("eventName");
 			String description = request.getParameter("description");
+			
 			Date startDate = new Date();
 			Date endDate = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -86,7 +83,7 @@ public class EventMainAction extends HttpServlet {
 			String location = request.getParameter("location");
 			String status = request.getParameter("status");
 			
-			evnManager.createNewEvent(eventName, description, location, startDate, endDate, null, status);
+			evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
 			doGet(request, response);
 			
 		}

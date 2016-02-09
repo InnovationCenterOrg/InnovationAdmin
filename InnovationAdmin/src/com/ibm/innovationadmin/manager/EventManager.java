@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
 
 import com.ibm.innovationadmin.constants.CommonConstants;
 import com.ibm.innovationadmin.model.EventModel;
+import com.ibm.innovationadmin.model.ProfileUserModel;
 
 @Stateless
 @LocalBean
@@ -143,40 +145,37 @@ public class EventManager {
 	public List<EventModel> getEventList(String eveName, Date eveStartDate, String eveStatus){
 		List<EventModel> resultList = null;
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("select * from event ");
-//		if(eveName != null && !eveName.equals("")){
-//			sqlBuffer.append("and eve_name like ? ");
-//		}
-//		
-//		if(eveStartDate != null){
-//			sqlBuffer.append("and eve_start_date like ? ");
-//		}
-//		
-//		if(eveStatus != null && !eveStatus.equals("")){
-//			sqlBuffer.append("and eve_status = ? ");
-//		}
-//		
-//		sqlBuffer.append("order by eve_name, eve_start_date ");
+		sqlBuffer.append("select * from event where eve_id <> 0 ");
+		if(eveName != null && !eveName.equals("")){
+			sqlBuffer.append("and eve_name like ? ");
+		}
+		
+		if(eveStartDate != null){
+			sqlBuffer.append("and eve_start_date like ? ");
+		}
+		
+		if(eveStatus != null && !eveStatus.equals("")){
+			sqlBuffer.append("and eve_status = ? ");
+		}
+		
+		sqlBuffer.append("order by eve_name, eve_start_date ");
 		log.info(sqlBuffer+"");
 		try{
 			connection = ds.getConnection();
 			pstmt = connection.prepareStatement(sqlBuffer.toString());
 			int runningParam = 1;
-			log.info("Pass0");
-//			if(eveName != null && !eveName.equals("")){
-//				pstmt.setString(runningParam, "%"+eveName+"%");
-//				runningParam += 1;
-//			}
-//			if(eveStartDate != null){
-//				pstmt.setString(runningParam, "%"+dateFormat.format(eveStartDate));
-//				runningParam += 1;
-//			}
-//			
-//			if(eveStatus != null && !eveStatus.equals("")){
-//				pstmt.setString(runningParam, eveStatus);
-//			}
-//			
-			log.info("Pass1");
+			if(eveName != null && !eveName.equals("")){
+				pstmt.setString(runningParam, "%"+eveName+"%");
+				runningParam += 1;
+			}
+			if(eveStartDate != null){
+				pstmt.setString(runningParam, "%"+dateFormat.format(eveStartDate));
+				runningParam += 1;
+			}
+			
+			if(eveStatus != null && !eveStatus.equals("")){
+				pstmt.setString(runningParam, eveStatus);
+			}
 			
 			ResultSet results = pstmt.executeQuery();
 			EventModel event = null;
@@ -193,19 +192,15 @@ public class EventManager {
 				event.setEveStatus(results.getString("eve_status"));
 				event.setEveCreateDate(dateTimeFormat.parse(results.getString("eve_create_date")));
 				event.setEveUpdateDate(dateTimeFormat.parse(results.getString("eve_update_date")));
-				log.info("Pass2");
 				resultList.add(event);
-				log.info("Pass3");
 			}
-			log.info("Pass4");
 			connection.close();
-			log.info("size="+resultList.size());
 			return resultList;
 			
 		}catch(SQLException e1){
 			log.info("SQL ERROR : "+e1.getMessage());
 		}catch(Exception e2){
-			log.info("ERROR : "+e2+e2.getMessage());
+			log.info("ERROR : "+e2.getMessage());
 		}
 		
 		return resultList;
@@ -247,6 +242,75 @@ public class EventManager {
 		
 	}
 	
+	public List<ProfileUserModel> getRegisterUser(Integer eveId){
+		
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("SELECT p.pro_fullname, p.pro_company_name, p.pro_email, p.pro_contact_no FROM event e ");
+		sqlBuffer.append("LEFT OUTER JOIN register_event r ON e.eve_id = r.ree_eve_id "); 
+		sqlBuffer.append("AND r.ree_eve_id = ? LEFT OUTER JOIN profile_user p ON r.ree_pro_id = p.pro_id");
+		
+		List<ProfileUserModel> resultList = null;
+		try{
+			connection = ds.getConnection();
+			pstmt = connection.prepareStatement(sqlBuffer.toString());
+			pstmt.setInt(1, eveId.intValue());
+			
+			ResultSet results = pstmt.executeQuery();
+			ProfileUserModel user = null;
+			resultList = new ArrayList();
+			while(results.next()){
+				user = new ProfileUserModel();
+				user.setProFullName(results.getString("pro_fullname"));
+				user.setProCompanyName(results.getString("pro_company_name"));
+				user.setProContactNo(results.getString("pro_contact_no"));
+				user.setProEmail(results.getString("pro_email"));
+				resultList.add(user);
+			}
+		
+		connection.close();
+		return resultList;
+		}catch(SQLException e1){
+			log.info("SQL ERROR : "+e1.getMessage());
+		}catch(Exception e2){
+			log.info("ERROR : "+e2.getMessage());
+		}
+		return resultList;
+	}
 	
+	public String deleteEvent(Integer eveId){
+		String sql = "delete from event where eve_id=?";
+		try{
+			connection = ds.getConnection();
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, eveId.intValue());
+			
+			int result = pstmt.executeUpdate();
+			connection.close();
+			
+			if(result > 0){
+				return CommonConstants.RETURN_SUCCESS;
+			}
+			
+			
+		}catch(SQLException e1){
+			log.info("SQL ERROR : "+e1.getMessage());
+		}catch(Exception e2){
+			log.info("ERROR : "+e2.getMessage());
+		}
+		
+		return CommonConstants.RETURN_FAIL;
+		
+	}
+	
+	public Date checkYear(Date date){	
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		if(cal.get(Calendar.YEAR) > 2500){
+			cal.add(Calendar.YEAR, -543); 
+		}
+		return cal.getTime();
+	}
 	
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML><%@page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <title>home</title>
@@ -47,13 +48,18 @@
 	</nav>
 	<div class="container">
 		<div class='row'>
-			<div class='col-sm-9'>
+			<div class='col-sm-11'>
 				<h2>User Profile</h2>
+			</div>
+			<div class='col-sm-1' style="margin-top: 20px">
+				<button type="button" class="btn btn-primary btn-block" onclick="add()">
+					<i class="glyphicon glyphicon-plus"></i> Add
+				</button>
 			</div>
 		</div>
 		<div class='row'>
 			<div class='col-sm-12'>
-				<form class="form-inline" method='get' action='./EventMainAction'>
+				<form class="form-inline" method='get' action='./UserMainAction'>
 					<input type="text" class="form-control" id="keyword"
 						name='keyword' placeholder='Search'></input>
 					<button type="submit" class='btn btn-primary'>Search</button>
@@ -63,31 +69,72 @@
 		<table class="table table-striped table-hover ">
 			<thead>
 				<tr>
+					<th><div align="center">#</div></th>
+					<th><div align="center">Title</div></th>
 					<th><div align="center">Name</div></th>
 					<th><div align="center">Company</div></th>
 					<th><div align="center">Username</div></th>
-					<th></th>
 					<th><div align="center">Reset Password</div></th>
 				</tr>
 			</thead>
 			<tbody>
-
-				<tr>
-					<td><div align="center">Test Name</div></td>
-					<td><div align="center">IBM</div></td>
-					<td><div align="center">test.1</div></td>
-					<td><div align="center"><a href="${pageContext.request.contextPath}/view/userinfo.jsp?userid=1">View Detail</a></div></td>
-					<td align="center"><button type="button" name="resetpwd"
-							class="btn btn-default btn-sm" aria-label="Left Align">
-							<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
-						</button></td>
-				</tr>
-
+				<c:if test="${not empty userList}">
+					<c:forEach var="user" items="${userList}" varStatus="status">
+						<tr>
+							<td><div align="center">${status.index + 1}</div></td>
+							<td><div align="center">${user.proTitle }</div></td>
+							<td><div align="left">
+									<a href="${pageContext.request.contextPath}/UserDetailAction?proid=${user.proId}">${user.proFullName }</a>
+								</div></td>
+							<td><div align="center">${user.proCompanyName }</div></td>
+							<td><div align="center">${user.proUsername }</div></td>
+							<td align="center"><button type="button" name="resetpwd" onclick="resetpwd(${user.proId})"
+									class="btn btn-default btn-sm" aria-label="Left Align">
+									<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
+								</button></td>
+						</tr>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty userList}">
+					<tr>
+						<td colspan="6"><div align="center">No items to
+								display</div></td>
+					</tr>
+				</c:if>
 			</tbody>
 		</table>
 	</div>
-
+	
+	<form action="" method="Post" id="frm">
+		<input type="hidden" name="actionType" id="actionType" value="">
+		<input type="hidden" name="proId" id="proId" value=""> 
+	</form>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	
+		window.onload = function() {
+			var msg = '${msg}'
+			console.log(msg);
+			if(msg){
+				alert('Reset password complete. Default password is '+msg+'.');
+			}
+		};
+		
+		function resetpwd(proId){
+			var frm = document.getElementById('frm');
+			document.getElementById('proId').value = proId;
+			document.getElementById('actionType').value='resetpwd';
+			if(confirm('Are you sure want to reset password.')){
+				frm.submit();
+			}
+		}
+		
+		function add(){
+			var frm = document.getElementById('frm');
+			document.getElementById('actionType').value='redirectAdd';
+			frm.submit();
+		}
+	</script>
 </body>
 </html>

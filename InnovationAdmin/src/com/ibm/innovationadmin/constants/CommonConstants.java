@@ -20,4 +20,7 @@ public class CommonConstants {
 	
 	public static final int DEFAULT_INT_VALUE = 0;
 	
+	public static final int PAGING = 20;
+	
+	public static final String DEFAULT_PASSWORD = "P@ssw0rd";
 }
