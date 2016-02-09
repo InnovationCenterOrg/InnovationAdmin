@@ -25,15 +25,15 @@
 
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="./EventMainAction">Event</a></li>
-					<li calss='active'><a href="./UserMainAction">User</a></li>
+					<li><a href="${pageContext.request.contextPath}/EventMainAction">Event</a></li>
+					<li calss='active'><a href="${pageContext.request.contextPath}/UserMainAction">User</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="true">Report
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="./DashboardMainAction">Dashboard</a></li>
-							<li><a href="./ReportMainAction">Report</a></li>
+							<li><a href="${pageContext.request.contextPath}/DashboardMainAction">Dashboard</a></li>
+							<li><a href="${pageContext.request.contextPath}/ReportMainAction">Report</a></li>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

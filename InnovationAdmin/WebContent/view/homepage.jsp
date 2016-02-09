@@ -58,10 +58,6 @@
 		</div>
 	</div>
 	
-	<form action="" method="post" id="frm">
-		<input type="hidden" name="actionType" id="actionType" value="">
-		<input type="hidden" name="eventId" id="eventId" value="">
-	</form>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 

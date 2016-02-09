@@ -107,6 +107,8 @@ public class EventDetailAction extends HttpServlet {
 				evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
 				doGet(request, response);
 			}
+		}else if(actionType.equals("genLuckyDraw")){
+			
 		}
 		
 		

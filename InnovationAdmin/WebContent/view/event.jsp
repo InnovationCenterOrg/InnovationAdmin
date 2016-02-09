@@ -108,7 +108,7 @@
 								</button></td>
 							<td align="center"><button type="button"
 									name="Gen-Lucky-Draw" class="btn btn-default btn-sm"
-									aria-label="Left Align">
+									aria-label="Left Align" onclick="genLucky(${event.eveId })">
 									<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
 								</button></td>
 							<td align="center"><button type="button" name="Delete" 
@@ -205,6 +205,10 @@
 			if(confirm("Are you sure you want to archive this event?")){
 				frm.submit();
 			}
+		}
+		
+		function genLucky(evnid){
+			
 		}
 	</script>
 </body>
