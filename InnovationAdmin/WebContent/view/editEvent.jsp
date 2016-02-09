@@ -127,7 +127,7 @@
 									<select class="form-control" id="status" name="status">
 										<option selected="selected" value="active">Active</option>
 										<option value="closed">Closed</option>
-										
+										<option value="cancel">Cancel</option>
 									</select>
 								</div>
 							</div>
@@ -176,6 +176,11 @@
 				document.getElementById('actionType').value = 'edit';
 				document.getElementById('eventId').value = '${event.eveId}';
 				document.getElementById('status').value = '${event.eveStatus}';
+			}
+			
+			var msg = "${msg}";
+			if(msg){
+				alert(msg);
 			}
 		};
 

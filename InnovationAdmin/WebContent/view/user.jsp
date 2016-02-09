@@ -114,7 +114,7 @@
 	<script type="text/javascript">
 	
 		window.onload = function() {
-			var msg = '${msg}'
+			var msg = "${msg}";
 			console.log(msg);
 			if(msg){
 				alert('Reset password complete. Default password is '+msg+'.');

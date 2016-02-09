@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.ibm.innovationadmin.constants.CommonConstants;
 import com.ibm.innovationadmin.manager.AuthenticationManager;
 import com.ibm.innovationadmin.manager.ProfileUserManager;
 import com.ibm.innovationadmin.manager.EventManager;
@@ -48,12 +49,23 @@ public class EventMainAction extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("GET Event List");
 		String eveName = request.getParameter("keyword"); 
-//		int page = 1;
-//		if(request.getParameter("page") != null){
-//			page = Integer.parseInt(request.getParameter("page"));
-//		}
+		int page = 1;
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 		List<EventModel> evnList = evnManager.getEventList(eveName, null, null);
-		request.setAttribute("evnList", evnList);
+		
+		int size = 1;
+		int from = Math.max(0,(page-1)*size);
+		int to = Math.min(evnList.size(),page*size);
+		
+		List<EventModel> eventPaging = evnList.subList(from, to);
+		
+		int endPage = (int) Math.ceil((double) evnList.size() / size);
+				
+		request.setAttribute("evnList", eventPaging);
+		request.setAttribute("startPage", 1);
+		request.setAttribute("endPage", endPage);
 		request.getRequestDispatcher(eventMainPage).forward(request, response);
 	}
 	
@@ -62,10 +74,11 @@ public class EventMainAction extends HttpServlet {
 		log.info("POST Event Main");
 		
 		String actionType = request.getParameter("actionType");
-		int eveId = Integer.parseInt(request.getParameter("eventId"));
+		
 		
 		// if confirm delete 
 		if(actionType.equals("delete")){
+			int eveId = Integer.parseInt(request.getParameter("eventId"));
 			List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
 			// if this event has registered user
 			if(userList.size() > 0){
@@ -105,9 +118,17 @@ public class EventMainAction extends HttpServlet {
 			
 		}// if confirm archive
 		else if(actionType.equals("archive")){
-		
-			
-			
+			int eveId = Integer.parseInt(request.getParameter("eventId"));
+			// if status is closed
+			if(evnManager.checkArchiveRule(eveId)){
+				
+				//Archive
+				
+			}// if not
+			else{
+				request.setAttribute("msg", "This event's status must be closed!");
+			}
+			doGet(request, response);
 		}
 	}
 }

@@ -62,14 +62,15 @@ public class EventDetailAction extends HttpServlet {
 		
 		// if click edit button
 		if(actionType.equals("redirectEdit")){
-			EventModel event = evnManager.getEventById(Integer.parseInt(request.getParameter("eventId")));
+			int eventId = Integer.parseInt(request.getParameter("eventId"));
+			EventModel event = evnManager.getEventById(eventId);
 			request.setAttribute("event", event);
 			request.setAttribute("type", "Edit");
 			request.getRequestDispatcher(editPage).forward(request, response);
 			
 		}// if submit edit form
 		else if(actionType.equals("edit")){
-			int eventId = Integer.parseInt(request.getParameter("eventid"));
+			int eventId = Integer.parseInt(request.getParameter("eventId"));
 			String eventName = request.getParameter("eventName");
 			String description = request.getParameter("description");
 			

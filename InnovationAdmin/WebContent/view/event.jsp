@@ -129,6 +129,31 @@
 					</tr>
 				</c:if>
 			</tbody>
+			<c:if test="${endPage > 1}">
+				<tfoot>
+					<tr>
+						<td colspan="9" class="text-right">
+							<nav>
+								<ul class="pagination">
+									<c:if test="${not empty param.page and param.page > 1}">
+										<li><a href="?keyword=${param.keyword}&page=${param.page-1}" aria-label="Previous"> <span
+												aria-hidden="true">&laquo;</span>
+										</a></li>
+									</c:if>
+									<c:forEach begin="${startPage}" end="${endPage}" var="p">
+										<li><a href="?keyword=${param.keyword}&page=${p}">${p}</a></li>
+									</c:forEach>
+									<c:if test="${param.page < endPage }">
+										<li><a href="?keyword=${param.keyword}&page=${param.page+1}" aria-label="Next"> <span
+												aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:if>
+								</ul>
+							</nav>
+						</td>
+					</tr>
+				</tfoot>
+			</c:if>
 		</table>
 	</div>
 	
@@ -141,8 +166,7 @@
 
 	<script type="text/javascript">
 		window.onload = function() {
-			var msg = '${msg}'
-			console.log(msg);
+			var msg = "${msg}";
 			if(msg){
 				alert(msg);
 			}
