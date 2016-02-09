@@ -91,7 +91,7 @@
 					<c:forEach var="event" items="${evnList}" varStatus="status">
 						<tr>
 							<td><div align="center">${status.index + 1}</div></td>
-							<td><div align="left"><a href="${pageContext.request.contextPath}/EventDetailAction?eventid=${event.eveId }">${event.eveName }</a></div></td>
+							<td><div align="left"><a href="${pageContext.request.contextPath}/EventDetailAction?eventId=${event.eveId }">${event.eveName }</a></div></td>
 							<td><div align="center">
 									<fmt:formatDate pattern="dd/MM/yyyy"
 										value="${event.eveStartDate }" />
@@ -140,6 +140,14 @@
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
+		window.onload = function() {
+			var msg = '${msg}'
+			console.log(msg);
+			if(msg){
+				alert(msg);
+			}
+		};
+	
 		function genQR(evnid){
 						
 			var imgWindow = window.open('', 'QR Code', 'height=400,width=400');
@@ -164,6 +172,15 @@
 			var frm = document.getElementById('frm');
 			document.getElementById('actionType').value='redirectAdd';
 			frm.submit();
+		}
+		
+		function archive(evnid){
+			var frm = document.getElementById('frm');
+			document.getElementById('eventId').value = evnid;
+			document.getElementById('actionType').value='archive';
+			if(confirm("Are you sure you want to archive this event?")){
+				frm.submit();
+			}
 		}
 	</script>
 </body>

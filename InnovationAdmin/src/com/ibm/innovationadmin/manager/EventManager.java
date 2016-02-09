@@ -246,8 +246,8 @@ public class EventManager {
 		
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("SELECT p.pro_fullname, p.pro_company_name, p.pro_email, p.pro_contact_no FROM event e ");
-		sqlBuffer.append("LEFT OUTER JOIN register_event r ON e.eve_id = r.ree_eve_id "); 
-		sqlBuffer.append("AND r.ree_eve_id = ? LEFT OUTER JOIN profile_user p ON r.ree_pro_id = p.pro_id");
+		sqlBuffer.append("INNER JOIN register_event r ON e.eve_id = r.ree_eve_id "); 
+		sqlBuffer.append("AND r.ree_eve_id = ? INNER JOIN profile_user p ON r.ree_pro_id = p.pro_id");
 		
 		List<ProfileUserModel> resultList = null;
 		try{
@@ -301,6 +301,31 @@ public class EventManager {
 		
 		return CommonConstants.RETURN_FAIL;
 		
+	}
+	
+	public boolean checkCloseRule(int eventId){
+		boolean returnresult = false;
+		EventModel event = getEventById(eventId);
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.HOUR, 7);
+		Calendar endDate = Calendar.getInstance();
+		endDate.setTime(event.getEveEndDate());
+		
+		if(now.after(endDate)){
+			returnresult = true;
+		}
+		
+		return returnresult;
+	}
+	
+	public boolean checkArchiveRule(int eventId){
+		boolean returnresult = false;
+		EventModel event = getEventById(eventId);
+		
+		if(event.getEveStatus().equals("closed")){
+			returnresult = true;
+		}
+		return returnresult;
 	}
 	
 	public Date checkYear(Date date){	

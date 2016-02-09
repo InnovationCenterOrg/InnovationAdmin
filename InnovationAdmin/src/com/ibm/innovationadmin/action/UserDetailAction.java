@@ -39,8 +39,8 @@ public class UserDetailAction extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOGET");
-		int proId = Integer.parseInt(request.getParameter("proid"));
+		log.info("GET User Detail");
+		int proId = Integer.parseInt(request.getParameter("proId"));
 		ProfileUserModel user = profileUserManager.getProfileUserById(proId);
 		request.setAttribute("user", user);
 		request.getRequestDispatcher(forwardUrl).forward(request, response);
@@ -48,9 +48,10 @@ public class UserDetailAction extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOPOST");
+		log.info("POST User Detail");
 		String actionType = request.getParameter("actionType");
 		int proId = Integer.parseInt(request.getParameter("proId"));
+		// if confirm reset password
 		if(actionType.equals("resetpwd")){
 			
 			log.info("Reset PWD");
@@ -58,10 +59,29 @@ public class UserDetailAction extends HttpServlet {
 			request.setAttribute("msg", CommonConstants.DEFAULT_PASSWORD);
 			doGet(request,response);
 			
-		}else if(actionType.equals("redirectEdit")){
+		}// if click edit button
+		else if(actionType.equals("redirectEdit")){
 			
+			ProfileUserModel user = profileUserManager.getProfileUserById(proId);
 			request.setAttribute("type", "Edit");
+			request.setAttribute("user", user);
 			request.getRequestDispatcher(editUser).forward(request, response);
+			
+		}// if submit form edit
+		else if(actionType.equals("edit")){
+			
+			String title = request.getParameter("title");
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String fullName = firstName +" "+ lastName;
+			String company = request.getParameter("company");
+			String contactNo = request.getParameter("contactNo");
+			String email = request.getParameter("email");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			profileUserManager.updateProfileUserById(title, proId, firstName, lastName, fullName, company, contactNo, email, username, password);
+			doGet(request, response);
 			
 		}
 

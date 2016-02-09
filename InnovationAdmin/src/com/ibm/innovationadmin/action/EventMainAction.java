@@ -46,8 +46,7 @@ public class EventMainAction extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		doPost(request,response);
-		log.info("TEST DOGET");
+		log.info("GET Event List");
 		String eveName = request.getParameter("keyword"); 
 //		int page = 1;
 //		if(request.getParameter("page") != null){
@@ -60,17 +59,32 @@ public class EventMainAction extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOPOST");
+		log.info("POST Event Main");
 		
 		String actionType = request.getParameter("actionType");
+		int eveId = Integer.parseInt(request.getParameter("eventId"));
+		
+		// if confirm delete 
 		if(actionType.equals("delete")){
-			int eveId = Integer.parseInt(request.getParameter("eventId"));
-			evnManager.deleteEvent(eveId);
+			List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
+			// if this event has registered user
+			if(userList.size() > 0){
+				request.setAttribute("msg", "This event has registered user!");
+			}// if not 
+			else{
+				evnManager.deleteEvent(eveId);
+			}
 			doGet(request, response);
-		}else if(actionType.equals("redirectAdd")){
+			
+		}// if click add button
+		else if(actionType.equals("redirectAdd")){
+			
 			request.setAttribute("type", "Add");
 			request.getRequestDispatcher(editPage).forward(request, response);
-		}else if(actionType.equals("add")){
+			
+		}//if submit form add
+		else if(actionType.equals("add")){
+			
 			String eventName = request.getParameter("eventName");
 			String description = request.getParameter("description");
 			Date startDate = new Date();
@@ -89,10 +103,11 @@ public class EventMainAction extends HttpServlet {
 			evnManager.createNewEvent(eventName, description, location, startDate, endDate, null, status);
 			doGet(request, response);
 			
+		}// if confirm archive
+		else if(actionType.equals("archive")){
+		
+			
+			
 		}
-		//String forwardUrl = "/view/event.jsp";
-		//request.getRequestDispatcher(forwardUrl).forward(request, response);
-		
 	}
-		
 }

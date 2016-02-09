@@ -41,7 +41,7 @@ public class UserMainAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 //		doPost(request,response);
-		log.info("TEST DOGET");
+		log.info("GET User List");
 		String keyword = request.getParameter("keyword"); 
 //		int page = 1;
 //		if(request.getParameter("page") != null){
@@ -54,9 +54,10 @@ public class UserMainAction extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOPOST");
+		log.info("POST User");
 		String actionType = request.getParameter("actionType");
 		
+		// if confirm reset password
 		if(actionType.equals("resetpwd")){
 			
 			int proId = Integer.parseInt(request.getParameter("proId"));
@@ -65,21 +66,36 @@ public class UserMainAction extends HttpServlet {
 			request.setAttribute("msg", CommonConstants.DEFAULT_PASSWORD);
 			doGet(request,response);
 			
-		}else if(actionType.equals("redirectAdd")){
+		}// if click add button
+		else if(actionType.equals("redirectAdd")){
 			
 			request.setAttribute("type", "Add");
 			request.getRequestDispatcher(editUser).forward(request, response);
 			
-		}else if(actionType.equals("check")){
+		}//call from ajax to check username
+		else if(actionType.equals("check")){
 			
 			String username = request.getParameter("username");
-			boolean isDup = profileUserManager.isDuplicateUsername(username);
+			boolean duplicate = profileUserManager.isDuplicateUsername(username);
 			PrintWriter out = response.getWriter();
-			out.write("isDup = "+isDup);
+			out.write(duplicate+"");
 			
-		}else if(actionType.equals("add")){
+		}// if submit form add user
+		else if(actionType.equals("add")){
 			
+			String title = request.getParameter("title");
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String fullName = firstName +" "+ lastName;
+			String company = request.getParameter("company");
+			String contactNo = request.getParameter("contactNo");
+			String email = request.getParameter("email");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String role = request.getParameter("role");
 			
+			profileUserManager.createNewProfileUser(title, firstName, lastName, fullName, company, contactNo, email, username, password, role);
+			doGet(request, response);
 			
 		}
 		

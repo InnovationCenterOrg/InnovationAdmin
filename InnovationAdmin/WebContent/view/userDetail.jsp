@@ -147,7 +147,7 @@
 		});
 		
 		function edit(proId){
-			console.log(evnid);
+			console.log(proId);
 			var frm = document.getElementById('frm');
 			document.getElementById('proId').value = proId;
 			document.getElementById('actionType').value='redirectEdit';

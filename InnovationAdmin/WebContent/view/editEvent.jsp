@@ -150,7 +150,7 @@
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name = "eventid" id="eventId">
+			<input type="hidden" name = "eventId" id="eventId">
 			<input type="hidden" name = "actionType" id="actionType">
 		</form>
 
@@ -200,7 +200,6 @@
 				window.location = '${pageContext.request.contextPath}/EventMainAction';
 			}
 		}
-		
 	</script>
 </body>
 </html>

@@ -102,21 +102,21 @@
 								<label class="col-md-2 control-label">Company</label>
 								<div class="col-md-4">
 									<input class="form-control" name="company" type="text"
-										id="location" value="${user.proCompanyName }">
+										id="company" value="${user.proCompanyName }">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Contact Number</label>
 								<div class="col-md-4">
-									<input class="form-control" name="contactNo" type="text"
-										id="contactNo" value="${user.proContactNo }">
+									<input class="form-control" name="contactNo" type="text" onkeypress="return isNumberKey(event);"
+										id="contactNo" value="${user.proContactNo }" >
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Email</label>
 								<div class="col-md-4">
 									<input class="form-control" name="email" type="text"
-										id="email" value="${user.proContactNo }">
+										id="email" value="${user.proEmail }">
 								</div>
 							</div>
 							<div class="form-group">
@@ -161,6 +161,7 @@
 			</div>
 			<input type="hidden" name = "proId" id="proId">
 			<input type="hidden" name = "actionType" id="actionType">
+			<input type="hidden" name = "title" id="titleHidden" value="${user.proTitle }">
 		</form>
 
 		<script
@@ -176,11 +177,18 @@
 				$('#title').text('Add User');
 				document.getElementById('role').value = 'Admin';
 				document.getElementById('actionType').value = 'add';
+				document.getElementById('titleHidden').disabled = true;
 			}else if('${type}' == 'Edit'){
 				$('#frm').attr('action', '${pageContext.request.contextPath}/UserDetailAction');
 				$('#title').text('Edit User');
 				document.getElementById('actionType').value = 'edit';
 				document.getElementById('proId').value = '${user.proId}';
+				document.getElementById('titleName').disabled = true;
+				document.getElementById('firstName').readOnly = true;
+				document.getElementById('lastName').readOnly = true;
+				document.getElementById('company').readOnly = true;
+				document.getElementById('username').readOnly = true;
+				document.getElementById('password').readOnly = true;
 			}
 		};
 
@@ -191,21 +199,30 @@
 		}
 		
 		function update(){
-			var username = document.getElementById('username').value;
-			console.log(username);
-			$.post("${pageContext.request.contextPath}/UserMainAction",
-				    {
-				        actionType: "check",
-				        username: username
-				    },
-				    function(data){
-				        console.log(data);
-				        if(data == true){
-				        	alert("Username is duplicate!");
-				        }else{
-				        	//document.getElementById('frm').submit();
-				        }
-				    });
+			if(document.getElementById('actionType').value == 'add'){
+				var username = document.getElementById('username').value;
+				$.post("${pageContext.request.contextPath}/UserMainAction",
+					    {
+					        actionType: "check",
+					        username: username
+					    },
+					    function(duplicate){
+					        console.log(duplicate);
+					        if(duplicate == 'false'){
+					        	alert("Username is duplicate!");
+					        }else{
+					        	document.getElementById('frm').submit();
+					        }
+					    });
+			}else{
+				document.getElementById('frm').submit();
+			}
+			
+		}
+		
+		function isNumberKey(evt){
+		    var charCode = (evt.which) ? evt.which : evt.keyCode
+		    return !(charCode > 31 && (charCode < 48 || charCode > 57));
 		}
 	</script>
 </body>

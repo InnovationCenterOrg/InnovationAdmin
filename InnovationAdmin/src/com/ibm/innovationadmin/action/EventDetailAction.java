@@ -45,8 +45,8 @@ public class EventDetailAction extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOGET");
-		int eveId = Integer.parseInt(request.getParameter("eventid"));
+		log.info("GET Event Detail");
+		int eveId = Integer.parseInt(request.getParameter("eventId"));
 		EventModel event = evnManager.getEventById(eveId);
 		List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
 		request.setAttribute("event", event);
@@ -56,16 +56,19 @@ public class EventDetailAction extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOPOST");
+		log.info("POST Event Detail");
 		
 		String actionType = request.getParameter("actionType");
 		
+		// if click edit button
 		if(actionType.equals("redirectEdit")){
 			EventModel event = evnManager.getEventById(Integer.parseInt(request.getParameter("eventId")));
 			request.setAttribute("event", event);
 			request.setAttribute("type", "Edit");
 			request.getRequestDispatcher(editPage).forward(request, response);
-		}else if(actionType.equals("edit")){
+			
+		}// if submit edit form
+		else if(actionType.equals("edit")){
 			int eventId = Integer.parseInt(request.getParameter("eventid"));
 			String eventName = request.getParameter("eventName");
 			String description = request.getParameter("description");
@@ -83,12 +86,28 @@ public class EventDetailAction extends HttpServlet {
 			String location = request.getParameter("location");
 			String status = request.getParameter("status");
 			
-			evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
-			doGet(request, response);
-			
+			//if status changed to closed
+			if(status.equals("closed")){
+				
+				//if now > endDate
+				if(evnManager.checkCloseRule(eventId)){
+					evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
+					doGet(request, response);
+				}//if now < endDate
+				else{
+					request.setAttribute("msg", "This event is not allow to closed!");
+					EventModel event = evnManager.getEventById(Integer.parseInt(request.getParameter("eventId")));
+					request.setAttribute("event", event);
+					request.setAttribute("type", "Edit");
+					request.getRequestDispatcher(editPage).forward(request, response);
+				}
+			}// if status is active
+			else{
+				evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
+				doGet(request, response);
+			}
 		}
-		//String forwardUrl = "/view/event.jsp";
-		//request.getRequestDispatcher(forwardUrl).forward(request, response);
+		
 		
 	}
 		

@@ -84,7 +84,7 @@
 							<td><div align="center">${status.index + 1}</div></td>
 							<td><div align="center">${user.proTitle }</div></td>
 							<td><div align="left">
-									<a href="${pageContext.request.contextPath}/UserDetailAction?proid=${user.proId}">${user.proFullName }</a>
+									<a href="${pageContext.request.contextPath}/UserDetailAction?proId=${user.proId}">${user.proFullName }</a>
 								</div></td>
 							<td><div align="center">${user.proCompanyName }</div></td>
 							<td><div align="center">${user.proUsername }</div></td>
