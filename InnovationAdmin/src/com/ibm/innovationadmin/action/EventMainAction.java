@@ -55,7 +55,7 @@ public class EventMainAction extends HttpServlet {
 		}
 		List<EventModel> evnList = evnManager.getEventList(eveName, null, null);
 		
-		int size = 1;
+		int size = CommonConstants.PAGING;
 		int from = Math.max(0,(page-1)*size);
 		int to = Math.min(evnList.size(),page*size);
 		

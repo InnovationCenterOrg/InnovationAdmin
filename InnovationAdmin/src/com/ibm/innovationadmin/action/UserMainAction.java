@@ -40,15 +40,24 @@ public class UserMainAction extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		doPost(request,response);
 		log.info("GET User List");
 		String keyword = request.getParameter("keyword"); 
-//		int page = 1;
-//		if(request.getParameter("page") != null){
-//			page = Integer.parseInt(request.getParameter("page"));
-//		}
+		int page = 1;
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 		List<ProfileUserModel> usrList = profileUserManager.getProfileUserList(keyword);
-		request.setAttribute("userList", usrList);
+		
+		int size = CommonConstants.PAGING;
+		int from = Math.max(0,(page-1)*size);
+		int to = Math.min(usrList.size(),page*size);
+		List<ProfileUserModel> usrPaging = usrList.subList(from, to);
+		
+		int endPage = (int) Math.ceil((double) usrList.size() / size);
+		
+		request.setAttribute("userList", usrPaging);
+		request.setAttribute("startPage", 1);
+		request.setAttribute("endPage", endPage);
 		request.getRequestDispatcher(forwardUrl).forward(request, response);
 	}
 	
