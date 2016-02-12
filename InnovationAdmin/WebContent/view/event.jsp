@@ -108,7 +108,7 @@
 								</button></td>
 							<td align="center"><button type="button"
 									name="Gen-Lucky-Draw" class="btn btn-default btn-sm"
-									aria-label="Left Align" onclick="genLucky(${event.eveId })">
+									aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
 									<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
 								</button></td>
 							<td align="center"><button type="button" name="Delete" 
@@ -156,6 +156,7 @@
 			</c:if>
 		</table>
 	</div>
+
 	
 	<form action="" method="post" id="frm">
 		<input type="hidden" name="actionType" id="actionType" value="">
@@ -207,9 +208,8 @@
 			}
 		}
 		
-		function genLucky(evnid){
-			
-		}
 	</script>
+		<!-- Add gen LuckyDraw modal -->
+	<%@include file="/view/genLuckyNo.jsp"%>
 </body>
 </html>

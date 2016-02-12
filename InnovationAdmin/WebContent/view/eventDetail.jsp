@@ -131,7 +131,7 @@
 
 						</div>
 						<div class='col-md-2 text-center'>
-							<button type="button" class="btn btn-primary btn-block">
+							<button type="button" class="btn btn-primary btn-block"  data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
 								<i class="glyphicon glyphicon-gift"></i> Gen Lucky Draw
 							</button>
 						</div>
@@ -146,15 +146,27 @@
 								<th width="10%"><div align="center">#</div></th>
 								<th width="20%"><div align="center">Lucky Number</div></th>
 								<th><div align="left">Customer Name</div></th>
+								<th><div align="left">Status</div></th>
 							</tr>
 						</thead>
 						<tbody>
 
-							<tr>
-								<td><div align="center">1</div></td>
-								<th width="20%"><div align="center">555</div></th>
-								<td><div align="left">Test Name</div></td>
-							</tr>
+							<c:if test="${not empty luckyDraw}">
+								<c:forEach var="luc" items="${luckyDraw}" varStatus="status">
+									<tr>
+										<td><div align="center">${status.index + 1}</div></td>
+										<th width="20%"><div align="center">${luc.lucLuckyNo }</div></th>
+										<td><div align="left">${luc.proFullName }</div></td>
+										<td><div align="left">${luc.lucStatus }</div></td>
+									</tr>
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty luckyDraw}">
+								<tr>
+									<td colspan="5"><div align="center">No items to
+											display</div></td>
+								</tr>
+							</c:if>
 
 						</tbody>
 					</table>
@@ -235,5 +247,7 @@
 			frm.submit();
 		}
 	</script>
+			<!-- Add gen LuckyDraw modal -->
+	<%@include file="/view/genLuckyNo.jsp"%>
 </body>
 </html>

@@ -10,6 +10,7 @@ public class LuckyDrawModel {
 	private Integer lucReeId;
 	private String lucStatus;
 	private Date lucCreateDate;
+	private String proFullName;
 	
 	public Integer getLucId() {
 		return lucId;
@@ -46,6 +47,12 @@ public class LuckyDrawModel {
 	}
 	public void setLucCreateDate(Date lucCreateDate) {
 		this.lucCreateDate = lucCreateDate;
+	}
+	public String getProFullName() {
+		return proFullName;
+	}
+	public void setProFullName(String proFullName) {
+		this.proFullName = proFullName;
 	}
 	
 	

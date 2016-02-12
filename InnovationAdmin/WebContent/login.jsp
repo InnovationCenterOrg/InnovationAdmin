@@ -13,17 +13,35 @@
 </head>
 
 <body>
-	<h1>Hello World</h1>
 	<div class="container">
-		<form method="post" action="LoginAction" class="form-signin">
-			<input type="text" class="form-control" id="userId" name="userId" placeholder="UserId">
-			<button type="submit" class="btn btn-primary form-control">Login</button>
-	
+  <div class="container" style="float:left;width: 35%">
+  	<div align="center" style="margin-top:60%">
+      <img class="img-responsive" src="${pageContext.request.contextPath}/images/ibm_logo.png">
+  <h2 align="center">Innovation Center</h2>
+  </div>
+  </div>
+  <div class="container" style="float: right;width: 35%;margin-top:20%;margin-left: 30%">
+		<form class="form-signin" action="LoginAction" method="post">
+			
+			<div class="form-group">
+				<label>Email</label> <input type="text" placeholder="Email" id="email" name="email" class="form-control">
+			</div>
+			<div class="form-group">
+				<label>Password</label> <input type="password" placeholder="Password" id="password" name="password" class="form-control">
+					<a style="margin-left:70%" href="#">Forgot password</a>
+			</div>
+			<div style="margin-top: 40px;" class="form-group">
+				<button type="submit" class="btn btn-primary btn-block">
+					<i class="glyphicon glyphicon-log-in"></i> Log in
+				</button>
+			</div>
+			
 		</form>
+  </div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
 
 	</div>
 </body>

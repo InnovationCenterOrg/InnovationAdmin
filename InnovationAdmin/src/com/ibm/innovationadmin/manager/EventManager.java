@@ -40,8 +40,8 @@ public class EventManager {
 	}
 	
 	//Create
-	public String createNewEvent(String eveName, String eveDescription, String eveLocation, Date eveStartDate, Date eveEndDate, String evePicturePath, String eveStatus){
-		String sql = "insert into event (eve_name, eve_description, eve_location, eve_start_date, eve_end_date, eve_picture_path, eve_status, eve_create_date, eve_update_date) values(?,?,?,?,?,?,?,?,?)";
+	public String createNewEvent(String eveName, String eveDescription, String eveLocation, Date eveStartDate, Date eveEndDate, String evePicturePath, String eveStatus, String eveCancelRemark){
+		String sql = "insert into event (eve_name, eve_description, eve_location, eve_start_date, eve_end_date, eve_picture_path, eve_status, eve_create_date, eve_update_date, eve_cancel_remark) values(?,?,?,?,?,?,?,?,?)";
 		Date currentDateTime = new Date();
 		try{
 			connection = ds.getConnection();
@@ -56,6 +56,7 @@ public class EventManager {
 			pstmt.setString(7, eveStatus);
 			pstmt.setString(8, dateTimeFormat.format(currentDateTime));
 			pstmt.setString(9, dateTimeFormat.format(currentDateTime));
+			pstmt.setString(10, eveCancelRemark);
 			
 			int result = pstmt.executeUpdate();
 			connection.close();
@@ -74,8 +75,8 @@ public class EventManager {
 	}
 	
 	//Update Information
-	public String updateEvent(Integer eveId, String eveName, String eveDescription, String eveLocation, Date eveStartDate, Date eveEndDate, String evePicturePath, String eveStatus){
-		String sql = "update event set eve_name=?, eve_description=?, eve_location=?, eve_start_date=?, eve_end_date=?, eve_picture_path=?, eve_status=?, eve_update_date=? where eve_id=?";
+	public String updateEvent(Integer eveId, String eveName, String eveDescription, String eveLocation, Date eveStartDate, Date eveEndDate, String evePicturePath, String eveStatus, String eveCancelRemark){
+		String sql = "update event set eve_name=?, eve_description=?, eve_location=?, eve_start_date=?, eve_end_date=?, eve_picture_path=?, eve_status=?, eve_update_date=?, eve_cancel_remark where eve_id=?";
 		Date currentDateTime = new Date();
 		try{
 			connection = ds.getConnection();
@@ -90,6 +91,7 @@ public class EventManager {
 			pstmt.setString(7, eveStatus);
 			pstmt.setString(8, dateTimeFormat.format(currentDateTime));
 			pstmt.setInt(9, eveId.intValue());
+			pstmt.setString(10, eveCancelRemark);
 			
 			int result = pstmt.executeUpdate();
 			connection.close();
@@ -227,7 +229,7 @@ public class EventManager {
 				event.setEveStatus(results.getString("eve_status"));
 				event.setEveCreateDate(dateTimeFormat.parse(results.getString("eve_create_date")));
 				event.setEveUpdateDate(dateTimeFormat.parse(results.getString("eve_update_date")));
-				
+				event.setEveCancelRemark(results.getString("eve_cancel_remark"));
 			}
 			
 			connection.close();

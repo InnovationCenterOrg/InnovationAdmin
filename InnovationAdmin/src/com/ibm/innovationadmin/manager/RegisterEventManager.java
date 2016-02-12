@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -17,6 +18,7 @@ import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
 import com.ibm.innovationadmin.constants.CommonConstants;
+import com.ibm.innovationadmin.model.EventModel;
 import com.ibm.innovationadmin.model.RegisterEventModel;
 
 @Stateless
@@ -48,7 +50,7 @@ public class RegisterEventManager {
 			pstmt.setInt(2, reeProId);
 			pstmt.setInt(3, CommonConstants.DEFAULT_INT_VALUE); //First time create registerevent, not generate lucky no. --> set to 0
 			pstmt.setString(4, CommonConstants.FLAG_N);
-			pstmt.setString(5, dateTimeFormat.format(currentDateTime));
+			pstmt.setString(5, dateFormat.format(currentDateTime));
 			pstmt.setString(6, dateTimeFormat.format(currentDateTime));
 			pstmt.setString(7, dateTimeFormat.format(currentDateTime));
 			
@@ -135,24 +137,95 @@ public class RegisterEventManager {
 		return n;
 	}
 
-//	public List<RegisterEventModel> getListByEveId(Integer eveId){
-//	List<RegisterEventModel> resultList = null;
-//	String sql = "";
-//	try{
-//		connection = ds.getConnection();
-//		pstmt = connection.prepareStatement(sql);
-//		
-//		connection.close();
-//		
-//	}catch(SQLException e1){
-//		log.info("SQL ERROR : "+e1.getMessage());
-//	}catch(Exception e2){
-//		log.info("ERROR : "+e2.getMessage());
-//	}
-//	
-//	return resultList;
-//	
-//	}
+	public List<RegisterEventModel> getListByEveId(Integer eveId){
+	List<RegisterEventModel> resultList = null;
+	String sql = "select * from register_event where ree_eve_id = ? and ree_got_prize_flag = 'N'";
+	try{
+		connection = ds.getConnection();
+		pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setInt(1, eveId.intValue());
+		
+		ResultSet rs = pstmt.executeQuery();
+		RegisterEventModel ree = null;
+		resultList = new ArrayList();
+		while(rs.next()){
+			
+			ree = new RegisterEventModel();
+			ree.setReeEveId(rs.getInt("REE_EVE_ID"));
+			ree.setReeId(rs.getInt("REE_ID"));
+			ree.setReeLuckyNo(rs.getInt("REE_LUCKY_NO"));		
+			resultList.add(ree);
+			
+		}
+		connection.close();
+		
+	}catch(SQLException e1){
+		log.info("SQL ERROR : "+e1.getMessage());
+	}catch(Exception e2){
+		log.info("ERROR : "+e2.getMessage());
+	}
 	
+	return resultList;
 	
+	}
+	
+	public String updateLuckyStatus(Integer reeId, String status){
+		String sql = "update register_event set ree_got_prize_flag=?, ree_update_date=? where ree_id = ? ";
+		try{
+			connection = ds.getConnection();
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setString(1, status);
+			pstmt.setString(2, dateTimeFormat.format(new Date()));
+			pstmt.setInt(3, reeId.intValue());
+			
+			int result = pstmt.executeUpdate();
+			connection.close();
+			if(result > 0){
+				return CommonConstants.RETURN_SUCCESS;
+			}
+			
+			
+		}catch(SQLException e1){
+			log.info("SQL ERROR : "+e1.getMessage());
+		}catch(Exception e2){
+			log.info("ERROR : "+e2.getMessage());
+		}
+		
+		return CommonConstants.RETURN_FAIL;
+	}
+	
+	public RegisterEventModel getReeById(Integer reeId){
+		String sql = "select * from register_event where ree_id = ? ";
+		RegisterEventModel ree = null;
+		try{
+			connection = ds.getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, reeId.intValue());
+			
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				ree = new RegisterEventModel();
+				ree.setReeId(results.getInt("ree_id"));
+				ree.setReeEveId(results.getInt("ree_eve_id"));
+				ree.setReeProId(results.getInt("ree_pro_id"));
+				ree.setReeLuckyNo(results.getInt("ree_lucky_no"));
+				ree.setReeGotPrizeFlag(results.getString("ree_got_prize_flag"));
+				ree.setReeRegisterDate(dateFormat.parse(results.getString("ree_register_date")));
+				ree.setReeCreateDate(dateTimeFormat.parse(results.getString("ree_create_date")));
+				ree.setReeUpdateDate(dateTimeFormat.parse(results.getString("ree_update_date")));
+			}
+			
+			connection.close();
+			return ree;
+			
+		}catch(SQLException e1){
+			log.info("SQL ERROR : "+e1.getMessage());
+		}catch(Exception e2){
+			log.info("ERROR : "+e2.getMessage());
+		}
+		return ree;
+		
+	}
 }

@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.ibm.innovationadmin.manager.AuthenticationManager;
+import com.ibm.innovationadmin.manager.LuckyDrawManager;
 import com.ibm.innovationadmin.manager.ProfileUserManager;
 import com.ibm.innovationadmin.manager.EventManager;
+import com.ibm.innovationadmin.model.LuckyDrawModel;
 import com.ibm.innovationadmin.model.ProfileUserModel;
 import com.ibm.innovationadmin.model.EventModel;
 
@@ -40,6 +42,9 @@ public class EventDetailAction extends HttpServlet {
 	@EJB
 	private EventManager evnManager;
 	
+	@EJB
+	private LuckyDrawManager luckyDrawManager;
+	
 	private static final Logger log = Logger.getLogger(EventDetailAction.class.getName()); 
 	private static final String editPage = "/view/editEvent.jsp";
 	
@@ -49,8 +54,10 @@ public class EventDetailAction extends HttpServlet {
 		int eveId = Integer.parseInt(request.getParameter("eventId"));
 		EventModel event = evnManager.getEventById(eveId);
 		List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
+		List<LuckyDrawModel> luckyDraw = luckyDrawManager.getListByEveId(eveId);
 		request.setAttribute("event", event);
 		request.setAttribute("userList", userList);
+		request.setAttribute("luckyDraw", luckyDraw);
 		request.getRequestDispatcher("/view/eventDetail.jsp").forward(request, response);
 	}
 	
@@ -92,7 +99,7 @@ public class EventDetailAction extends HttpServlet {
 				
 				//if now > endDate
 				if(evnManager.checkCloseRule(eventId)){
-					evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
+					evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, null);
 					doGet(request, response);
 				}//if now < endDate
 				else{
@@ -102,9 +109,25 @@ public class EventDetailAction extends HttpServlet {
 					request.setAttribute("type", "Edit");
 					request.getRequestDispatcher(editPage).forward(request, response);
 				}
+			}// if status change to cancel
+			else if(status.equals("cancel")){
+				
+				String remark = request.getParameter("remark");
+				if(remark != null){
+					// Wait for Update database (remark)
+					evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, remark);
+					doGet(request, response);
+				}else{
+					request.setAttribute("msg", "Please fill remark!");
+					EventModel event = evnManager.getEventById(Integer.parseInt(request.getParameter("eventId")));
+					request.setAttribute("event", event);
+					request.setAttribute("type", "Edit");
+					request.getRequestDispatcher(editPage).forward(request, response);
+				}
+				
 			}// if status is active
 			else{
-				evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status);
+				evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, null);
 				doGet(request, response);
 			}
 		}else if(actionType.equals("genLuckyDraw")){

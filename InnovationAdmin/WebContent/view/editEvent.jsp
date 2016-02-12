@@ -74,7 +74,7 @@
 							<h5 class="panel-title pull-left" style="padding-top: 7.5px;">Event
 								Information</h5>
 						</div>
-						<div class="panel-body">
+						<div class="panel-body" id="editForm">
 
 							<div class="form-group">
 								<label class="col-md-2 control-label">Event Name</label>
@@ -124,7 +124,7 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">Status</label>
 								<div class="col-md-4">
-									<select class="form-control" id="status" name="status">
+									<select class="form-control" id="status" name="status" onchange="checkStatus()">
 										<option selected="selected" value="active">Active</option>
 										<option value="closed">Closed</option>
 										<option value="cancel">Cancel</option>
@@ -151,6 +151,7 @@
 				</div>
 			</div>
 			<input type="hidden" name = "eventId" id="eventId">
+			<input type="hidden" name = "status" id="statusHide" value="${event.eveStatus }">
 			<input type="hidden" name = "actionType" id="actionType">
 		</form>
 
@@ -170,12 +171,15 @@
 				$('#frm').attr('action', '${pageContext.request.contextPath}/EventMainAction');
 				$('#title').text('Add Event');
 				document.getElementById('actionType').value = 'add';
+				document.getElementById('status').disable = true;
 			}else if('${type}' == 'Edit'){
 				$('#frm').attr('action', '${pageContext.request.contextPath}/EventDetailAction');
 				$('#title').text('Edit Event');
 				document.getElementById('actionType').value = 'edit';
 				document.getElementById('eventId').value = '${event.eveId}';
 				document.getElementById('status').value = '${event.eveStatus}';
+				document.getElementById('statusHide').disable = true;
+				checkStatus();
 			}
 			
 			var msg = "${msg}";
@@ -204,6 +208,25 @@
 			if(confirm("Are you sure you want to cancel")){
 				window.location = '${pageContext.request.contextPath}/EventMainAction';
 			}
+		}
+		
+		function checkStatus(){
+			var status = document.getElementById('status').value;
+			console.log(document.getElementById("remarkForm"));
+			if(document.getElementById("remarkForm") == null)
+			{
+				if(status == 'cancel'){
+					var html = '<div class="form-group" id="remarkForm"><label class="col-md-2 control-label">Remark </label><div class="col-md-4">';
+						html+= '<textarea rows="5" name="remark" id="remark"cols="45" class="form-control"></textarea>';
+						html+= '</div></div>';
+					$( "#editForm" ).append( html );
+				}
+			}else{
+				if(status !== 'cancel'){
+					$('#remarkForm').remove();
+				}
+			}
+			
 		}
 	</script>
 </body>

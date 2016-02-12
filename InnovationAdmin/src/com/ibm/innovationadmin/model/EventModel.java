@@ -12,6 +12,7 @@ public class EventModel {
 	private Date eveEndDate;
 	private String evePicturePath;
 	private String eveStatus;
+	private String eveCancelRemark;
 	private Date eveCreateDate;
 	private Date eveUpdateDate;
 	
@@ -63,6 +64,12 @@ public class EventModel {
 	}
 	public void setEveStatus(String eveStatus) {
 		this.eveStatus = eveStatus;
+	}
+	public String getEveCancelRemark() {
+		return eveCancelRemark;
+	}
+	public void setEveCancelRemark(String eveCancelRemark) {
+		this.eveCancelRemark = eveCancelRemark;
 	}
 	public Date getEveCreateDate() {
 		return eveCreateDate;

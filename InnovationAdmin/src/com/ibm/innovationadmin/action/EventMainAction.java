@@ -18,12 +18,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
 import com.ibm.innovationadmin.constants.CommonConstants;
 import com.ibm.innovationadmin.manager.AuthenticationManager;
+import com.ibm.innovationadmin.manager.LuckyDrawManager;
 import com.ibm.innovationadmin.manager.ProfileUserManager;
 import com.ibm.innovationadmin.manager.EventManager;
+import com.ibm.innovationadmin.manager.RegisterEventManager;
+import com.ibm.innovationadmin.model.LuckyDrawModel;
 import com.ibm.innovationadmin.model.ProfileUserModel;
 import com.ibm.innovationadmin.model.EventModel;
+import com.ibm.innovationadmin.model.RegisterEventModel;
 
 public class EventMainAction extends HttpServlet {
 	
@@ -40,6 +45,12 @@ public class EventMainAction extends HttpServlet {
 	
 	@EJB
 	private EventManager evnManager;
+	
+	@EJB
+	private RegisterEventManager registerEventManager;
+	
+	@EJB
+	private LuckyDrawManager luckyDrawManager;
 	
 	private static final Logger log = Logger.getLogger(EventMainAction.class.getName()); 
 	private static final String eventMainPage = "/view/event.jsp";
@@ -74,8 +85,7 @@ public class EventMainAction extends HttpServlet {
 		log.info("POST Event Main");
 		
 		String actionType = request.getParameter("actionType");
-		
-		
+
 		// if confirm delete 
 		if(actionType.equals("delete")){
 			int eveId = Integer.parseInt(request.getParameter("eventId"));
@@ -113,7 +123,7 @@ public class EventMainAction extends HttpServlet {
 			String location = request.getParameter("location");
 			String status = request.getParameter("status");
 			
-			evnManager.createNewEvent(eventName, description, location, startDate, endDate, null, status);
+			evnManager.createNewEvent(eventName, description, location, startDate, endDate, null, status, null);
 			doGet(request, response);
 			
 		}// if confirm archive
@@ -129,6 +139,40 @@ public class EventMainAction extends HttpServlet {
 				request.setAttribute("msg", "This event's status must be closed!");
 			}
 			doGet(request, response);
+		}// if open luckyDraw
+		else if(actionType.equals("getLuckyList")){
+			
+			int eveId = Integer.parseInt(request.getParameter("eventId"));
+			List<RegisterEventModel> luckyList = registerEventManager.getListByEveId(eveId);
+			log.info("lucky list size = "+luckyList.size());
+			
+			String json = new Gson().toJson(luckyList);
+			log.info(json);
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(json);
+			
+		}// if post lucky result
+		else if(actionType.equals("LuckyDraw")){
+			log.info("Lucky Draw OK");
+			int reeId = Integer.parseInt(request.getParameter("reeId"));
+			String status = request.getParameter("status");
+			String luckyStatus = "NO SHOW";
+			
+			if(status.equals("Y")){
+				luckyStatus = "GOT PRIZE";
+				// update table register_event
+				registerEventManager.updateLuckyStatus(reeId, status);
+			}
+			
+			// set object
+			RegisterEventModel ree = registerEventManager.getReeById(reeId);
+			// insert table luckydraw
+			String result = luckyDrawManager.createNewLuckyDraw(ree, luckyStatus);
+			
+			response.setContentType("application/plain");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(result);
 		}
 	}
 }

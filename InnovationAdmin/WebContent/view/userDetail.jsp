@@ -53,7 +53,13 @@
 			</div>
 		</div>
 		<table class="table table-condensed">
-
+						<tr>
+							<td width="10%" bgcolor="#D9D8D8">Title</td>
+							<td width="5%" bgcolor="#D9D8D8">:</td>
+							<td width="85%">
+								<div class="col-md-6" id="title">${user.proTitle }</div>
+							</td>
+						</tr>
 						<tr>
 							<td width="10%" bgcolor="#D9D8D8">First Name</td>
 							<td width="5%" bgcolor="#D9D8D8">:</td>
