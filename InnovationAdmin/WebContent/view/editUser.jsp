@@ -45,7 +45,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class='hidden-xs hidden-sm'>
-						<p class="navbar-text">Hi, ----</p>
+						<p class="navbar-text">Hi, ${name }</p>
 					</li>
 					<li><a href="/logout">Logout</a></li>
 				</ul>

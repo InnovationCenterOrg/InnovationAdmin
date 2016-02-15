@@ -44,7 +44,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class='hidden-xs hidden-sm'>
-						<p class="navbar-text">Hi, ----</p>
+						<p class="navbar-text">Hi, ${name }</p>
 					</li>
 					<li><a href="/logout">Logout</a></li>
 				</ul>
@@ -101,24 +101,62 @@
 										value="${event.eveEndDate }" />
 								</div></td>
 							<td class="text-capitalize"><div align="center">${event.eveStatus }</div></td>
-							<td align="center"><button type="button" name="Gen-QR-Code"
-									id="genQR" class="btn btn-default btn-sm"
-									aria-label="Left Align"onclick="genQR(${event.eveId })">
-									<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
-								</button></td>
-							<td align="center"><button type="button"
-									name="Gen-Lucky-Draw" class="btn btn-default btn-sm"
-									aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
-									<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-								</button></td>
-							<td align="center"><button type="button" name="Delete" 
+							
+							<c:choose>
+								<c:when test="${event.eveStatus == 'active' }">
+									<td align="center"><button type="button" name="Gen-QR-Code"
+											id="genQR" class="btn btn-default btn-sm"
+											aria-label="Left Align"onclick="genQR(${event.eveId })">
+											<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+										</button></td>
+									<td align="center"><button type="button"
+											name="Gen-Lucky-Draw" class="btn btn-default btn-sm"
+											aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
+											<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+										</button></td>
+								</c:when>
+								<c:otherwise>
+									<td align="center"><button type="button" name="Gen-QR-Code"
+											id="genQR" class="btn btn-default btn-sm" disabled="disabled"
+											aria-label="Left Align"onclick="genQR(${event.eveId })">
+											<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+										</button></td>
+									<td align="center"><button type="button"
+											name="Gen-Lucky-Draw" class="btn btn-default btn-sm" disabled="disabled"
+											aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
+											<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+										</button></td>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:choose>
+								<c:when test="${event.eveRegisterUser > 0 }">
+							<td align="center"><button type="button" name="Delete" disabled="disabled"
 									class="btn btn-default btn-sm" aria-label="Left Align" onclick="del(${event.eveId })">
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 								</button></td>
+								</c:when>
+								<c:otherwise>
+									<td align="center"><button type="button" name="Delete" 
+										class="btn btn-default btn-sm" aria-label="Left Align" onclick="del(${event.eveId })">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button></td>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${event.eveStatus == 'closed' }">
 							<td align="center"><button type="button" name="archive" 
 									class="btn btn-default btn-sm" aria-label="Left Align" onclick="archive(${event.eveId })">
 									<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 								</button></td>
+								</c:when>
+								<c:otherwise>
+									<td align="center"><button type="button" name="archive" disabled="disabled"
+										class="btn btn-default btn-sm" aria-label="Left Align" onclick="archive(${event.eveId })">
+										<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+									</button></td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</c:if>

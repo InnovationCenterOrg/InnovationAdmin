@@ -41,7 +41,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class='hidden-xs hidden-sm'>
-						<p class="navbar-text">Hi, ----</p>
+						<p class="navbar-text">Hi, ${name }</p>
 					</li>
 					<li><a href="/logout">Logout</a></li>
 				</ul>
@@ -118,24 +118,26 @@
 						</tr>
 					</table>
 					<div class='row'>
-						<div class='col-md-3 text-center'></div>
-						<div class='col-md-2 text-center'>
-							<button type="button" class="btn btn-primary btn-block" onclick="edit(${event.eveId})">
-								<i class="glyphicon glyphicon-pencil"></i> Edit
-							</button>
-						</div>
-						<div class='col-md-2 text-center'>
-							<button type="button" class="btn btn-primary btn-block" id="genQR" data-link="${event.eveId }">
-								<i class="glyphicon glyphicon-qrcode"></i> Gen QR Code
-							</button>
-
-						</div>
-						<div class='col-md-2 text-center'>
-							<button type="button" class="btn btn-primary btn-block"  data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
-								<i class="glyphicon glyphicon-gift"></i> Gen Lucky Draw
-							</button>
-						</div>
-						<div class='col-md-3 text-center'></div>
+						<c:if test="${event.eveStatus == 'active' }">
+							<div class='col-md-3 text-center'></div>
+							<div class='col-md-2 text-center'>
+								<button type="button" class="btn btn-primary btn-block" onclick="edit(${event.eveId})">
+									<i class="glyphicon glyphicon-pencil"></i> Edit
+								</button>
+							</div>
+							<div class='col-md-2 text-center'>
+								<button type="button" class="btn btn-primary btn-block" id="genQR" data-link="${event.eveId }">
+									<i class="glyphicon glyphicon-qrcode"></i> Gen QR Code
+								</button>
+	
+							</div>
+							<div class='col-md-2 text-center'>
+								<button type="button" class="btn btn-primary btn-block"  data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
+									<i class="glyphicon glyphicon-gift"></i> Gen Lucky Draw
+								</button>
+							</div>
+							<div class='col-md-3 text-center'></div>
+						</c:if>
 					</div>
 					<div class='col-sm-9'>
 						<h3>Lucky Draw</h3>

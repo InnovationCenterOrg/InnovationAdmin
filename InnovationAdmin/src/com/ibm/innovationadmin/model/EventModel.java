@@ -15,7 +15,7 @@ public class EventModel {
 	private String eveCancelRemark;
 	private Date eveCreateDate;
 	private Date eveUpdateDate;
-	
+	private Integer eveRegisterUser;
 	
 	public Integer getEveId() {
 		return eveId;
@@ -82,6 +82,12 @@ public class EventModel {
 	}
 	public void setEveUpdateDate(Date eveUpdateDate) {
 		this.eveUpdateDate = eveUpdateDate;
+	}
+	public Integer getEveRegisterUser() {
+		return eveRegisterUser;
+	}
+	public void setEveRegisterUser(Integer eveRegisterUser) {
+		this.eveRegisterUser = eveRegisterUser;
 	}
 	
 	

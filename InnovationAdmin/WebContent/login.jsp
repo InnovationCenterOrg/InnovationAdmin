@@ -21,10 +21,10 @@
   </div>
   </div>
   <div class="container" style="float: right;width: 35%;margin-top:20%;margin-left: 30%">
-		<form class="form-signin" action="LoginAction" method="post">
+		<form class="form-signin" action="Login" method="post">
 			
 			<div class="form-group">
-				<label>Email</label> <input type="text" placeholder="Email" id="email" name="email" class="form-control">
+				<label>Username</label> <input type="text" placeholder="Username" id="username" name="username" class="form-control">
 			</div>
 			<div class="form-group">
 				<label>Password</label> <input type="password" placeholder="Password" id="password" name="password" class="form-control">
@@ -44,5 +44,14 @@
 		<script src="/js/bootstrap.min.js"></script>
 
 	</div>
+	<script type="text/javascript">
+		window.onload = function() {
+			var msg = "${error}";
+			if(msg){
+				alert(msg);
+			}
+		};
+	</script>
+	
 </body>
 </html>

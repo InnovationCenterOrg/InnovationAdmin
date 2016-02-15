@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.ibm.innovationadmin.manager.AuthenticationManager;
@@ -42,13 +43,31 @@ public class LoginAction extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		log.info("TEST DOPOST");
-	//	ProfileUserModel profile = profileUserManager.getProfileUserById(1);
-//		String forwardUrl = "/home.jsp?test="+profile.getProFullName();
-//		String forwardUrl = "/view/event.jsp";
-//		request.getRequestDispatcher(forwardUrl).forward(request, response);
-		
-		response.sendRedirect("EventMainAction");
+		log.info("Login");
+		String logout = request.getParameter("logout");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		if(logout != null){
+			HttpSession session = request.getSession();
+			session.removeAttribute("name");
+			response.sendRedirect("Login");
+		}else{
+			if(!username.equals("") && !password.equals("")){
+				ProfileUserModel profile = profileUserManager.authen(username, password);
+				if(profile != null){
+					String firstName = profile.getProFirstName();
+					HttpSession session = request.getSession();
+					session.setAttribute("name", firstName);
+					response.sendRedirect("EventMainAction");
+				}else{
+					request.setAttribute("error", "Username or password is incorrect!");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
+				
+			}else{
+				request.setAttribute("error", "Please fill username and password!");
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+		}
 	}
-		
 }

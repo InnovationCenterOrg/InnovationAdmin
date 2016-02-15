@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>InnovationAdmin</display-name>
 	<servlet>
-	<servlet-name>LoginAction</servlet-name>
+	<servlet-name>Login</servlet-name>
 		<servlet-class>com.ibm.innovationadmin.action.LoginAction</servlet-class>
 	</servlet>
 	<servlet>
@@ -37,8 +37,8 @@
 		<servlet-class>com.ibm.innovationadmin.action.ReportMainAction</servlet-class>
 	</servlet>		
 	<servlet-mapping>
-		<servlet-name>LoginAction</servlet-name>
-		<url-pattern>/LoginAction</url-pattern>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HelloAction</servlet-name>

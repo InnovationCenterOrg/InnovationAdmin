@@ -41,7 +41,7 @@ public class EventManager {
 	
 	//Create
 	public String createNewEvent(String eveName, String eveDescription, String eveLocation, Date eveStartDate, Date eveEndDate, String evePicturePath, String eveStatus, String eveCancelRemark){
-		String sql = "insert into event (eve_name, eve_description, eve_location, eve_start_date, eve_end_date, eve_picture_path, eve_status, eve_create_date, eve_update_date, eve_cancel_remark) values(?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into event (eve_name, eve_description, eve_location, eve_start_date, eve_end_date, eve_picture_path, eve_status, eve_create_date, eve_update_date, eve_cancel_remark, eve_register_user) values(?,?,?,?,?,?,?,?,?,?,0)";
 		Date currentDateTime = new Date();
 		try{
 			connection = ds.getConnection();
@@ -194,6 +194,8 @@ public class EventManager {
 				event.setEveStatus(results.getString("eve_status"));
 				event.setEveCreateDate(dateTimeFormat.parse(results.getString("eve_create_date")));
 				event.setEveUpdateDate(dateTimeFormat.parse(results.getString("eve_update_date")));
+				event.setEveCancelRemark(results.getString("eve_cancel_remark"));
+				event.setEveRegisterUser(results.getInt("eve_register_user"));
 				resultList.add(event);
 			}
 			connection.close();
@@ -230,6 +232,7 @@ public class EventManager {
 				event.setEveCreateDate(dateTimeFormat.parse(results.getString("eve_create_date")));
 				event.setEveUpdateDate(dateTimeFormat.parse(results.getString("eve_update_date")));
 				event.setEveCancelRemark(results.getString("eve_cancel_remark"));
+				event.setEveRegisterUser(results.getInt("eve_register_user"));
 			}
 			
 			connection.close();

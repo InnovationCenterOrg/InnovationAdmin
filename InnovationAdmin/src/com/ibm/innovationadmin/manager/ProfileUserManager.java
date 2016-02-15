@@ -37,11 +37,13 @@ public class ProfileUserManager {
 	
 	public ProfileUserModel authen(String username, String password){
 		log.info("Authentication Method");
-		String sql = "select * from profile_user where pro_username = ? and pro_password = ?";
+		String sql = "select * from profile_user where pro_username = ? and pro_password = ? and pro_role = 'Admin'";
 		try{
 			log.info("START QUERY");
 			connection = ds.getConnection();
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
 			
 			ResultSet result = pstmt.executeQuery();
 		
