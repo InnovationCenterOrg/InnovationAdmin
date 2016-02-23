@@ -228,6 +228,10 @@
 	<script type="text/javascript">
 		window.onload = function() {
 			activateTab('Event-Information');
+			var msg = "${msg}";
+			if(msg){
+				alert(msg);
+			}
 		};
 	
 		function activateTab(tab) {
@@ -241,7 +245,7 @@
 			imgWindow.document.write('<html><head><title>QR Code</title></head><body></body></html>');
 	
 			var img = imgWindow.document.createElement('img');
-			img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=innovationadmin.eu-gb.mybluemix.net/EventDetailAction?eventid=' + link;
+			img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=innovationadmin.eu-gb.mybluemix.net/EventDetailAction?eventId=' + link;
 			imgWindow.document.body.appendChild(img);
 			imgWindow.document.close();
 		});

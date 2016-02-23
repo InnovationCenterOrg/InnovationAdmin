@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.ibm.innovationadmin.constants.CommonConstants;
 import com.ibm.innovationadmin.manager.AuthenticationManager;
 import com.ibm.innovationadmin.manager.LuckyDrawManager;
 import com.ibm.innovationadmin.manager.ProfileUserManager;
@@ -81,6 +82,7 @@ public class EventDetailAction extends HttpServlet {
 			
 		}// if submit edit form
 		else if(actionType.equals("edit")){
+			String res = "";
 			int eventId = Integer.parseInt(request.getParameter("eventId"));
 			String eventName = request.getParameter("eventName");
 			String description = request.getParameter("description");
@@ -103,7 +105,10 @@ public class EventDetailAction extends HttpServlet {
 				
 				//if now > endDate
 				if(evnManager.checkCloseRule(eventId)){
-					evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, null);
+					res = evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, null);
+					if(res.equals(CommonConstants.RETURN_SUCCESS)){
+						request.setAttribute("msg", "This event is save successful.");
+					}
 					doGet(request, response);
 				}//if now < endDate
 				else{
@@ -119,7 +124,10 @@ public class EventDetailAction extends HttpServlet {
 				String remark = request.getParameter("remark");
 				if(remark != null){
 					// Wait for Update database (remark)
-					evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, remark);
+					res = evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, remark);
+					if(res.equals(CommonConstants.RETURN_SUCCESS)){
+						request.setAttribute("msg", "This event is save successful.");
+					}
 					doGet(request, response);
 				}else{
 					request.setAttribute("msg", "Please fill remark!");
@@ -131,14 +139,12 @@ public class EventDetailAction extends HttpServlet {
 				
 			}// if status is active
 			else{
-				evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, null);
+				res = evnManager.updateEvent(eventId, eventName, description, location, startDate, endDate, null, status, null);
+				if(res.equals(CommonConstants.RETURN_SUCCESS)){
+					request.setAttribute("msg", "This event is save successful.");
+				}
 				doGet(request, response);
 			}
-		}else if(actionType.equals("genLuckyDraw")){
-			
 		}
-		
-		
 	}
-		
 }

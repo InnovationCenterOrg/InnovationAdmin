@@ -75,8 +75,10 @@ public class UserMainAction extends HttpServlet {
 			
 			int proId = Integer.parseInt(request.getParameter("proId"));
 			log.info("Reset PWD");
-			profileUserManager.changePassword(proId, CommonConstants.DEFAULT_PASSWORD);
-			request.setAttribute("msg", CommonConstants.DEFAULT_PASSWORD);
+			String res = profileUserManager.changePassword(proId, CommonConstants.DEFAULT_PASSWORD);
+			if(res.equals(CommonConstants.RETURN_SUCCESS)){
+				request.setAttribute("msg", "Reset password complete. Default password is "+CommonConstants.DEFAULT_PASSWORD);
+			}
 			doGet(request,response);
 			
 		}// if click add button
@@ -104,7 +106,10 @@ public class UserMainAction extends HttpServlet {
 			user.setProRole(request.getParameter("role"));
 			
 			if(profileUserManager.isDuplicateUsername(user.getProUsername())){
-				profileUserManager.createNewProfileUser(user);
+				String res = profileUserManager.createNewProfileUser(user);
+				if(res.equals(CommonConstants.RETURN_SUCCESS)){
+					request.setAttribute("msg", "User detail is added successful.");
+				}
 				doGet(request, response);
 			}else{
 				request.setAttribute("type", "Add");

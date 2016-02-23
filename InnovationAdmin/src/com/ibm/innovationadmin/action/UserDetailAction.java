@@ -59,8 +59,10 @@ public class UserDetailAction extends HttpServlet {
 		if(actionType.equals("resetpwd")){
 			
 			log.info("Reset PWD");
-			profileUserManager.changePassword(proId, CommonConstants.DEFAULT_PASSWORD);
-			request.setAttribute("msg", CommonConstants.DEFAULT_PASSWORD);
+			String res = profileUserManager.changePassword(proId, CommonConstants.DEFAULT_PASSWORD);
+			if(res.equals(CommonConstants.RETURN_SUCCESS)){
+				request.setAttribute("msg", "Reset password complete. Default password is "+CommonConstants.DEFAULT_PASSWORD);
+			}
 			doGet(request,response);
 			
 		}// if click edit button
@@ -84,7 +86,10 @@ public class UserDetailAction extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			
-			profileUserManager.updateProfileUserById(title, proId, firstName, lastName, fullName, company, contactNo, email, username, password);
+			String res = profileUserManager.updateProfileUserById(title, proId, firstName, lastName, fullName, company, contactNo, email, username, password);
+			if(res.equals(CommonConstants.RETURN_SUCCESS)){
+				request.setAttribute("msg", "User detail is edited successful.");
+			}
 			doGet(request, response);
 			
 		}

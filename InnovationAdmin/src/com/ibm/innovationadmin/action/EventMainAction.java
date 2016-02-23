@@ -103,7 +103,10 @@ public class EventMainAction extends HttpServlet {
 				request.setAttribute("msg", "This event has registered user!");
 			}// if not 
 			else{
-				evnManager.deleteEvent(eveId);
+				String res = evnManager.deleteEvent(eveId);
+				if(res.equals(CommonConstants.RETURN_SUCCESS)){
+					request.setAttribute("msg", "Event is deleted.");
+				}
 			}
 			doGet(request, response);
 			
@@ -131,7 +134,10 @@ public class EventMainAction extends HttpServlet {
 			String location = request.getParameter("location");
 			String status = request.getParameter("status");
 			
-			evnManager.createNewEvent(eventName, description, location, startDate, endDate, null, status, null);
+			String res = evnManager.createNewEvent(eventName, description, location, startDate, endDate, null, status, null);
+			if(res.equals(CommonConstants.RETURN_SUCCESS)){
+				request.setAttribute("msg", "Event is save successful.");
+			}
 			doGet(request, response);
 			
 		}// if confirm archive
@@ -141,7 +147,10 @@ public class EventMainAction extends HttpServlet {
 			if(evnManager.checkArchiveRule(eveId)){
 				
 				//Archive
-				evnManager.updateStatus(eveId, "archive");
+				String res = evnManager.updateStatus(eveId, "archive");
+				if(res.equals(CommonConstants.RETURN_SUCCESS)){
+					request.setAttribute("msg", "Event archive successful.");
+				}
 			}// if not
 			else{
 				request.setAttribute("msg", "This event's status must be closed!");
