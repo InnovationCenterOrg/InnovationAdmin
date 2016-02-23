@@ -41,24 +41,28 @@ public class UserMainAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("GET User List");
-		String keyword = request.getParameter("keyword"); 
-		int page = 1;
-		if(request.getParameter("page") != null){
-			page = Integer.parseInt(request.getParameter("page"));
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			String keyword = request.getParameter("keyword"); 
+			int page = 1;
+			if(request.getParameter("page") != null){
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			List<ProfileUserModel> usrList = profileUserManager.getProfileUserList(keyword);
+			
+			int size = CommonConstants.PAGING;
+			int from = Math.max(0,(page-1)*size);
+			int to = Math.min(usrList.size(),page*size);
+			List<ProfileUserModel> usrPaging = usrList.subList(from, to);
+			
+			int endPage = (int) Math.ceil((double) usrList.size() / size);
+			
+			request.setAttribute("userList", usrPaging);
+			request.setAttribute("startPage", 1);
+			request.setAttribute("endPage", endPage);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
 		}
-		List<ProfileUserModel> usrList = profileUserManager.getProfileUserList(keyword);
-		
-		int size = CommonConstants.PAGING;
-		int from = Math.max(0,(page-1)*size);
-		int to = Math.min(usrList.size(),page*size);
-		List<ProfileUserModel> usrPaging = usrList.subList(from, to);
-		
-		int endPage = (int) Math.ceil((double) usrList.size() / size);
-		
-		request.setAttribute("userList", usrPaging);
-		request.setAttribute("startPage", 1);
-		request.setAttribute("endPage", endPage);
-		request.getRequestDispatcher(forwardUrl).forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request,
@@ -81,31 +85,33 @@ public class UserMainAction extends HttpServlet {
 			request.setAttribute("type", "Add");
 			request.getRequestDispatcher(editUser).forward(request, response);
 			
-		}//call from ajax to check username
-		else if(actionType.equals("check")){
-			
-			String username = request.getParameter("username");
-			boolean duplicate = profileUserManager.isDuplicateUsername(username);
-			PrintWriter out = response.getWriter();
-			out.write(duplicate+"");
-			
 		}// if submit form add user
 		else if(actionType.equals("add")){
 			
-			String title = request.getParameter("title");
+			ProfileUserModel user = new ProfileUserModel();
+			user.setProTitle(request.getParameter("title"));
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
 			String fullName = firstName +" "+ lastName;
-			String company = request.getParameter("company");
-			String contactNo = request.getParameter("contactNo");
-			String email = request.getParameter("email");
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			String role = request.getParameter("role");
+			user.setProFirstName(firstName);
+			user.setProLastName(lastName);
+			user.setProFullName(fullName);
+			user.setProCompanyName(request.getParameter("company"));
+			user.setProContactNo(request.getParameter("contactNo"));
+			user.setProEmail(request.getParameter("email"));
+			user.setProUsername(request.getParameter("username"));
+			user.setProPassword(request.getParameter("password"));
+			user.setProRole(request.getParameter("role"));
 			
-			profileUserManager.createNewProfileUser(title, firstName, lastName, fullName, company, contactNo, email, username, password, role);
-			doGet(request, response);
-			
+			if(profileUserManager.isDuplicateUsername(user.getProUsername())){
+				profileUserManager.createNewProfileUser(user);
+				doGet(request, response);
+			}else{
+				request.setAttribute("type", "Add");
+				request.setAttribute("msg", "Username is duplicate!");
+				request.setAttribute("user", user);
+				request.getRequestDispatcher(editUser).forward(request, response);
+			}	
 		}
 		
 		

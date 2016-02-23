@@ -4,12 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>home</title>
+<title>Event</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style type="text/css">
+	.modal .modal-dialog { width: 80%; }
+</style>
+
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top">
@@ -46,7 +51,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/Login?logout">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -109,11 +114,6 @@
 											aria-label="Left Align"onclick="genQR(${event.eveId })">
 											<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
 										</button></td>
-									<td align="center"><button type="button"
-											name="Gen-Lucky-Draw" class="btn btn-default btn-sm"
-											aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
-											<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-										</button></td>
 								</c:when>
 								<c:otherwise>
 									<td align="center"><button type="button" name="Gen-QR-Code"
@@ -121,20 +121,32 @@
 											aria-label="Left Align"onclick="genQR(${event.eveId })">
 											<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
 										</button></td>
+								</c:otherwise>
+							</c:choose>	
+							
+							<c:choose>
+								<c:when test="${event.eveStatus == 'active' && event.eveRegisterUser > 0}">			
+									<td align="center"><button type="button"
+											name="Gen-Lucky-Draw" class="btn btn-default btn-sm"
+											aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
+											<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+										</button></td>
+								</c:when>
+								<c:otherwise>
 									<td align="center"><button type="button"
 											name="Gen-Lucky-Draw" class="btn btn-default btn-sm" disabled="disabled"
 											aria-label="Left Align" data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
 											<span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
 										</button></td>
 								</c:otherwise>
-							</c:choose>
+							</c:choose>	
 							
 							<c:choose>
 								<c:when test="${event.eveRegisterUser > 0 }">
-							<td align="center"><button type="button" name="Delete" disabled="disabled"
-									class="btn btn-default btn-sm" aria-label="Left Align" onclick="del(${event.eveId })">
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-								</button></td>
+									<td align="center"><button type="button" name="Delete" disabled="disabled"
+											class="btn btn-default btn-sm" aria-label="Left Align" onclick="del(${event.eveId })">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</button></td>
 								</c:when>
 								<c:otherwise>
 									<td align="center"><button type="button" name="Delete" 
@@ -143,12 +155,14 @@
 									</button></td>
 								</c:otherwise>
 							</c:choose>
+							
+							
 							<c:choose>
 								<c:when test="${event.eveStatus == 'closed' }">
-							<td align="center"><button type="button" name="archive" 
-									class="btn btn-default btn-sm" aria-label="Left Align" onclick="archive(${event.eveId })">
-									<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-								</button></td>
+									<td align="center"><button type="button" name="archive" 
+											class="btn btn-default btn-sm" aria-label="Left Align" onclick="archive(${event.eveId })">
+											<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+										</button></td>
 								</c:when>
 								<c:otherwise>
 									<td align="center"><button type="button" name="archive" disabled="disabled"

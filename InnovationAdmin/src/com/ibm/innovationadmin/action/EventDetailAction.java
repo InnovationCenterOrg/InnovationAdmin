@@ -51,14 +51,18 @@ public class EventDetailAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("GET Event Detail");
-		int eveId = Integer.parseInt(request.getParameter("eventId"));
-		EventModel event = evnManager.getEventById(eveId);
-		List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
-		List<LuckyDrawModel> luckyDraw = luckyDrawManager.getListByEveId(eveId);
-		request.setAttribute("event", event);
-		request.setAttribute("userList", userList);
-		request.setAttribute("luckyDraw", luckyDraw);
-		request.getRequestDispatcher("/view/eventDetail.jsp").forward(request, response);
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			int eveId = Integer.parseInt(request.getParameter("eventId"));
+			EventModel event = evnManager.getEventById(eveId);
+			List<ProfileUserModel> userList = evnManager.getRegisterUser(eveId);
+			List<LuckyDrawModel> luckyDraw = luckyDrawManager.getListByEveId(eveId);
+			request.setAttribute("event", event);
+			request.setAttribute("userList", userList);
+			request.setAttribute("luckyDraw", luckyDraw);
+			request.getRequestDispatcher("/view/eventDetail.jsp").forward(request, response);
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request,

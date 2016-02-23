@@ -35,7 +35,7 @@
                     <li class='hidden-xs hidden-sm'>
                         <p class="navbar-text">Hi, ${name }</p>
                     </li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/Login?logout">Logout</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

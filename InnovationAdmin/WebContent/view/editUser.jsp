@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>home</title>
+<title>User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -30,9 +30,9 @@
 
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class='active'><a
-						href="${pageContext.request.contextPath}/EventMainAction">Event</a></li>
 					<li><a
+						href="${pageContext.request.contextPath}/EventMainAction">Event</a></li>
+					<li class='active'><a
 						href="${pageContext.request.contextPath}/UserMainAction">User</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="true">Report
@@ -47,7 +47,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/Login?logout">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -87,56 +87,56 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">First Name</label>
 								<div class="col-md-4">
-									<input class="form-control" name="firstName" type="text"
-										id="firstName" value="${user.proFirstName }">
+									<input class="form-control" name="firstName" required="required" type="text" 
+										id="firstName" value="${user.proFirstName }"/> 
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Last Name</label>
 								<div class="col-md-4">
-									<input class="form-control" name="lastName" type="text"
-										id="lastName" value="${user.proLastName }">
+									<input class="form-control" name="lastName" required="required" type="text" 
+										id="lastName" value="${user.proLastName }"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Company</label>
 								<div class="col-md-4">
-									<input class="form-control" name="company" type="text"
-										id="company" value="${user.proCompanyName }">
+									<input class="form-control" name="company" required="required" type="text" 
+										id="company" value="${user.proCompanyName }"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Contact Number</label>
 								<div class="col-md-4">
-									<input class="form-control" name="contactNo" type="text" onkeypress="return isNumberKey(event);"
-										id="contactNo" value="${user.proContactNo }" >
+									<input class="form-control" name="contactNo" required="required" type="text" onkeypress="return isNumberKey(event);"
+										id="contactNo" value="${user.proContactNo }" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Email</label>
 								<div class="col-md-4">
-									<input class="form-control" name="email" type="text"
-										id="email" value="${user.proEmail }">
+									<input class="form-control" name="email" required="required" type="text"
+										id="email" value="${user.proEmail }"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Username</label>
 								<div class="col-md-4">
-									<input class="form-control" name="username" type="text"
-										id="username" value="${user.proUsername }">
+									<input class="form-control" name="username" required="required" type="text"
+										id="username" value="${user.proUsername }"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Password</label>
 								<div class="col-md-4">
-									<input class="form-control" name="password" type="password"
-										id="password" value="${user.proPassword }">
+									<input class="form-control" name="password" required="required" type="password"
+										id="password" value="${user.proPassword }"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Role</label>
 								<div class="col-md-4">
-									<input class="form-control" name="role" type="text"
+									<input class="form-control" name="role"  type="text"
 										id="role" value="${user.proRole }" readonly="readonly">
 								</div>
 							</div>
@@ -145,7 +145,7 @@
 					<div class='row'>
 						<div class='col-md-4 text-center'></div>
 						<div class='col-md-2 text-center'>
-							<button type="button" class="btn btn-primary btn-block" id="save" onclick="update()">
+							<button type="submit" class="btn btn-primary btn-block" id="save">
 								<i class="glyphicon glyphicon-floppy-disk"></i> Save
 							</button>
 						</div>
@@ -172,6 +172,11 @@
 		<script type="text/javascript">
 		window.onload = function() {
 			
+			var msg = '${msg}';
+			if(msg){
+				alert(msg);
+			}
+			
 			if('${type}' == 'Add'){
 				$('#frm').attr('action', '${pageContext.request.contextPath}/UserMainAction');
 				$('#title').text('Add User');
@@ -183,6 +188,7 @@
 				$('#title').text('Edit User');
 				document.getElementById('actionType').value = 'edit';
 				document.getElementById('proId').value = '${user.proId}';
+				document.getElementById('titleName').value = '${user.proTitle}';
 				document.getElementById('titleName').disabled = true;
 				document.getElementById('firstName').readOnly = true;
 				document.getElementById('lastName').readOnly = true;
@@ -196,28 +202,6 @@
 			if(confirm("Are you sure you want to cancel")){
 				window.location = '${pageContext.request.contextPath}/UserMainAction';
 			}
-		}
-		
-		function update(){
-			if(document.getElementById('actionType').value == 'add'){
-				var username = document.getElementById('username').value;
-				$.post("${pageContext.request.contextPath}/UserMainAction",
-					    {
-					        actionType: "check",
-					        username: username
-					    },
-					    function(duplicate){
-					        console.log(duplicate);
-					        if(duplicate == 'false'){
-					        	alert("Username is duplicate!");
-					        }else{
-					        	document.getElementById('frm').submit();
-					        }
-					    });
-			}else{
-				document.getElementById('frm').submit();
-			}
-			
 		}
 		
 		function isNumberKey(evt){

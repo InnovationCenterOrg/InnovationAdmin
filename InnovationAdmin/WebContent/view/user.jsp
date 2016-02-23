@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<title>home</title>
+<title>User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -40,7 +40,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/Login?logout">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -74,6 +74,7 @@
 					<th><div align="center">Name</div></th>
 					<th><div align="center">Company</div></th>
 					<th><div align="center">Username</div></th>
+					<th><div align="center">Role</div></th>
 					<th><div align="center">Reset Password</div></th>
 				</tr>
 			</thead>
@@ -88,6 +89,7 @@
 								</div></td>
 							<td><div align="center">${user.proCompanyName }</div></td>
 							<td><div align="center">${user.proUsername }</div></td>
+							<td><div align="center">${user.proRole }</div></td>
 							<td align="center"><button type="button" name="resetpwd" onclick="resetpwd(${user.proId})"
 									class="btn btn-default btn-sm" aria-label="Left Align">
 									<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
@@ -97,7 +99,7 @@
 				</c:if>
 				<c:if test="${empty userList}">
 					<tr>
-						<td colspan="6"><div align="center">No items to
+						<td colspan="7"><div align="center">No items to
 								display</div></td>
 					</tr>
 				</c:if>

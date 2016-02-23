@@ -10,21 +10,21 @@
 				<h4 class="modal-title" id="ModalLabel">Lucky Draw</h4>
 			</div>
 				<div class="modal-body">
-					<div style="margin-top:10px;margin-bottom:90px;">
-						<div class="col-md-4">
+					<div style="margin-top:100px;margin-bottom:500px;">
+						<div class="col-md-2">
 						</div>
-						<div class="col-md-4">
-							<h2 id="luckyRandom" align="center"></h2>
+						<div class="col-md-8">
+							<h1 id="luckyRandom" align="center" style="font-size: 15em"></h1>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-2">
 						</div>
   					</div>
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" id="stopButton" onclick="startStop()">STOP</button>
-					<button type="button" class="btn btn-primary" id="gotPrizeButton" onclick="gotPrize()">GOT PRIZE</button>
-					<button type="button" class="btn btn-danger" id="noShowButton" onclick="noShow()">NO SHOW</button>
+					<button type="button" class="btn btn-primary" id="gotPrizeButton" onclick="gotPrize()" disabled>GOT PRIZE</button>
+					<button type="button" class="btn btn-danger" id="noShowButton" onclick="noShow()" disabled>NO SHOW</button>
 				</div>
 		</div>
 	</div>
@@ -47,6 +47,12 @@ $('#luckyDrawModal').on('show.bs.modal', function(e) {
 	getLucky();
 });
 
+$('#luckyDrawModal').on('hidden.bs.modal', function () {
+	clearInterval(run);
+	run = null;
+	$('#luckyRandom').text('');
+})
+
 function getLucky(){
 	$.post("${pageContext.request.contextPath}/EventMainAction",
 		    {
@@ -58,8 +64,15 @@ function getLucky(){
 		        luckyList = data;
 		     // run number
 			     if(luckyList.length > 0){
-			    	 run = setInterval(runRandom, 10);
-			    	return;
+			    	 stop = true;
+			    	 startStop();
+			    	 run = setInterval(runRandom, 100);
+			    	 return;
+			     }else{
+			    	 stop = false;
+			    	 startStop();
+			    	 $('#luckyRandom').text('Not have registered customers.');
+			    	 return;
 			     }
 		    });
 }
@@ -79,13 +92,24 @@ function noShow(){
 function startStop(){
 	stop = !stop;
 	console.log("Stop = "+stop);
-	if(stop){
-		$('#stopButton').text("START");
-		clearInterval(run);
-		run = null;
+	if(luckyList.length > 0){
+		document.getElementById("stopButton").removeAttribute("disabled");
+		if(stop){
+			$('#stopButton').text("START");
+			document.getElementById("gotPrizeButton").removeAttribute("disabled");
+			document.getElementById("noShowButton").removeAttribute("disabled");
+			clearInterval(run);
+			run = null;
+		}else{
+			$('#stopButton').text("STOP");
+			$('#gotPrizeButton').disabled = true;	
+			$('#noShowButton').disabled = true;	
+			run = setInterval(runRandom, 100);
+		}
 	}else{
-		$('#stopButton').text("STOP");
-		run = setInterval(runRandom, 10);
+		$('#stopButton').disabled = true;	
+		$('#gotPrizeButton').disabled = true;	
+		$('#noShowButton').disabled = true;	
 	}
 }
 
@@ -109,6 +133,7 @@ function postForm(i){
 		    function(data){
 		        console.log(data);
 		        luckyList.splice(i, 1);
+		        alert('This lucky number is saved successful.');
 		    });
 }
 </script>

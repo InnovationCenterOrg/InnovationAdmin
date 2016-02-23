@@ -40,10 +40,14 @@ public class UserDetailAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("GET User Detail");
-		int proId = Integer.parseInt(request.getParameter("proId"));
-		ProfileUserModel user = profileUserManager.getProfileUserById(proId);
-		request.setAttribute("user", user);
-		request.getRequestDispatcher(forwardUrl).forward(request, response);
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			int proId = Integer.parseInt(request.getParameter("proId"));
+			ProfileUserModel user = profileUserManager.getProfileUserById(proId);
+			request.setAttribute("user", user);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request,

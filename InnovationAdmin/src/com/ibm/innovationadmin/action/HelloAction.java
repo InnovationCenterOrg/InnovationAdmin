@@ -36,7 +36,11 @@ public class HelloAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("TEST DOGET");
-		request.getRequestDispatcher("/view/homepage.jsp").forward(request, response);
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			request.getRequestDispatcher("/view/homepage.jsp").forward(request, response);
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request,

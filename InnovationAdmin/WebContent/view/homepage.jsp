@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>home</title>
+<title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -46,7 +46,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/Login?logout">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

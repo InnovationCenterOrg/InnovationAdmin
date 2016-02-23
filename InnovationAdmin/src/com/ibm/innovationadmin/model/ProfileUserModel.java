@@ -17,6 +17,11 @@ public class ProfileUserModel {
 	private String proRole;
 	private Date proCreateDate;
 	private Date proUpdateDate;
+	
+	//Join REE Table
+	private Integer reeLuckyNo;
+	private String reeGotPrize;
+	
 	public Integer getProId() {
 		return proId;
 	}
@@ -94,6 +99,18 @@ public class ProfileUserModel {
 	}
 	public void setProUpdateDate(Date proUpdateDate) {
 		this.proUpdateDate = proUpdateDate;
+	}
+	public Integer getReeLuckyNo() {
+		return reeLuckyNo;
+	}
+	public void setReeLuckyNo(Integer reeLuckyNo) {
+		this.reeLuckyNo = reeLuckyNo;
+	}
+	public String getReeGotPrize() {
+		return reeGotPrize;
+	}
+	public void setReeGotPrize(String reeGotPrize) {
+		this.reeGotPrize = reeGotPrize;
 	}
 	
 	

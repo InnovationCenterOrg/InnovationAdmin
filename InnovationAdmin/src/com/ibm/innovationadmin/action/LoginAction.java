@@ -36,9 +36,8 @@ public class LoginAction extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
 		log.info("TEST DOGET");
-		//request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request,
@@ -47,17 +46,16 @@ public class LoginAction extends HttpServlet {
 		String logout = request.getParameter("logout");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		log.info("logout = "+logout);
 		if(logout != null){
-			HttpSession session = request.getSession();
-			session.removeAttribute("name");
+			request.getSession().setAttribute("name", null);
 			response.sendRedirect("Login");
 		}else{
 			if(!username.equals("") && !password.equals("")){
 				ProfileUserModel profile = profileUserManager.authen(username, password);
 				if(profile != null){
-					String firstName = profile.getProFirstName();
-					HttpSession session = request.getSession();
-					session.setAttribute("name", firstName);
+					String fullName = profile.getProFullName();
+					request.getSession().setAttribute("name", fullName);
 					response.sendRedirect("EventMainAction");
 				}else{
 					request.setAttribute("error", "Username or password is incorrect!");

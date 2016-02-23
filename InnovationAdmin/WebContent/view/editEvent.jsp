@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>home</title>
+<title>Event</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -49,7 +49,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/Login?logout">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -79,14 +79,14 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">Event Name</label>
 								<div class="col-md-4">
-									<input class="form-control" name="eventName" type="text"
-										id="eventName" value="${event.eveName }">
+									<input class="form-control" name="eventName" type="text" required="required"
+										id="eventName" value="${event.eveName }"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">Description </label>
 								<div class="col-md-4">
-									<textarea rows="5" name="description" id="description"
+									<textarea rows="5" name="description" id="description" required="required"
 										cols="45" class="form-control">${event.eveDescription }</textarea>
 								</div>
 							</div>
@@ -94,7 +94,7 @@
 								<label class="col-md-2 control-label">Start Date</label>
 								<div class="col-md-4">
 									<div class="input-group date" id="startDate">
-										<input type='text' class="form-control" name="startDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+										<input type='text' class="form-control" required="required" name="startDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${event.eveStartDate }" />"/> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
@@ -106,7 +106,7 @@
 								<label class="col-md-2 control-label">End Date</label>
 								<div class="col-md-4">
 									<div class="input-group date" id="endDate">
-										<input type='text' class="form-control" name="endDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+										<input type='text' class="form-control" required="required" name="endDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${event.eveEndDate }" />"/> <span
 											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
@@ -117,8 +117,8 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">Location</label>
 								<div class="col-md-4">
-									<input class="form-control" name="location" type="text"
-										id="location" value="${event.eveLocation }">
+									<input class="form-control" name="location" required="required" type="text"
+										id="location" value="${event.eveLocation }"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -171,14 +171,15 @@
 				$('#frm').attr('action', '${pageContext.request.contextPath}/EventMainAction');
 				$('#title').text('Add Event');
 				document.getElementById('actionType').value = 'add';
-				document.getElementById('status').disable = true;
+				document.getElementById('status').disabled = true;
+				document.getElementById('statusHide').value = 'active';
 			}else if('${type}' == 'Edit'){
 				$('#frm').attr('action', '${pageContext.request.contextPath}/EventDetailAction');
 				$('#title').text('Edit Event');
 				document.getElementById('actionType').value = 'edit';
 				document.getElementById('eventId').value = '${event.eveId}';
 				document.getElementById('status').value = '${event.eveStatus}';
-				document.getElementById('statusHide').disable = true;
+				document.getElementById('statusHide').disabled = true;
 				checkStatus();
 			}
 			

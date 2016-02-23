@@ -4,13 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>home</title>
+<title>Event</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<style type="text/css">
+	.modal .modal-dialog { width: 80%; }
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top">
@@ -43,7 +46,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/Login?logout">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -183,6 +186,7 @@
 						<thead>
 							<tr>
 								<th width="10%"><div align="center">#</div></th>
+								<th><div align="center">Title</div></th>
 								<th><div align="center">Customer Name</div></th>
 								<th><div align="center">Company Name</div></th>
 								<th><div align="center">Email</div></th>
@@ -194,6 +198,7 @@
 								<c:forEach var="user" items="${userList}" varStatus="status">
 									<tr>
 										<td><div align="center">${status.index + 1}</div></td>
+										<td><div align="left">${user.proTitle }</div></td>
 										<td><div align="left">${user.proFullName }</div></td>
 										<td><div align="center">${user.proCompanyName }</div></td>
 										<td><div align="center">${user.proEmail }</div></td>

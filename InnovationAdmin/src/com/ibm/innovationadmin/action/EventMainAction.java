@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.google.gson.Gson;
@@ -59,25 +60,32 @@ public class EventMainAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("GET Event List");
-		String eveName = request.getParameter("keyword"); 
-		int page = 1;
-		if(request.getParameter("page") != null){
-			page = Integer.parseInt(request.getParameter("page"));
+		
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			String eveName = request.getParameter("keyword"); 
+			int page = 1;
+			if(request.getParameter("page") != null){
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			List<EventModel> evnList = evnManager.getEventList(eveName, null, null, null);
+			
+			int size = CommonConstants.PAGING;
+			int from = Math.max(0,(page-1)*size);
+			int to = Math.min(evnList.size(),page*size);
+			
+			List<EventModel> eventPaging = evnList.subList(from, to);
+			
+			int endPage = (int) Math.ceil((double) evnList.size() / size);
+					
+			request.setAttribute("evnList", eventPaging);
+			request.setAttribute("startPage", 1);
+			request.setAttribute("endPage", endPage);
+			request.getRequestDispatcher(eventMainPage).forward(request, response);
 		}
-		List<EventModel> evnList = evnManager.getEventList(eveName, null, null);
 		
-		int size = CommonConstants.PAGING;
-		int from = Math.max(0,(page-1)*size);
-		int to = Math.min(evnList.size(),page*size);
 		
-		List<EventModel> eventPaging = evnList.subList(from, to);
-		
-		int endPage = (int) Math.ceil((double) evnList.size() / size);
-				
-		request.setAttribute("evnList", eventPaging);
-		request.setAttribute("startPage", 1);
-		request.setAttribute("endPage", endPage);
-		request.getRequestDispatcher(eventMainPage).forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request,
@@ -133,7 +141,7 @@ public class EventMainAction extends HttpServlet {
 			if(evnManager.checkArchiveRule(eveId)){
 				
 				//Archive
-				
+				evnManager.updateStatus(eveId, "archive");
 			}// if not
 			else{
 				request.setAttribute("msg", "This event's status must be closed!");

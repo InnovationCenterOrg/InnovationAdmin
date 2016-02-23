@@ -76,7 +76,7 @@ public class EventManager {
 	
 	//Update Information
 	public String updateEvent(Integer eveId, String eveName, String eveDescription, String eveLocation, Date eveStartDate, Date eveEndDate, String evePicturePath, String eveStatus, String eveCancelRemark){
-		String sql = "update event set eve_name=?, eve_description=?, eve_location=?, eve_start_date=?, eve_end_date=?, eve_picture_path=?, eve_status=?, eve_update_date=?, eve_cancel_remark where eve_id=?";
+		String sql = "update event set eve_name=?, eve_description=?, eve_location=?, eve_start_date=?, eve_end_date=?, eve_picture_path=?, eve_status=?, eve_update_date=?, eve_cancel_remark =? where eve_id=?";
 		Date currentDateTime = new Date();
 		try{
 			connection = ds.getConnection();
@@ -90,8 +90,8 @@ public class EventManager {
 			pstmt.setString(6, evePicturePath);
 			pstmt.setString(7, eveStatus);
 			pstmt.setString(8, dateTimeFormat.format(currentDateTime));
-			pstmt.setInt(9, eveId.intValue());
-			pstmt.setString(10, eveCancelRemark);
+			pstmt.setString(9, eveCancelRemark);
+			pstmt.setInt(10, eveId.intValue());
 			
 			int result = pstmt.executeUpdate();
 			connection.close();
@@ -144,7 +144,7 @@ public class EventManager {
 	
 	
 	//Search by crietria (eventName, eventStartDate, eventStatus)
-	public List<EventModel> getEventList(String eveName, Date eveStartDate, String eveStatus){
+	public List<EventModel> getEventList(String eveName, Integer month, Integer year, String eveStatus){
 		List<EventModel> resultList = null;
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select * from event where eve_id <> 0 ");
@@ -152,8 +152,8 @@ public class EventManager {
 			sqlBuffer.append("and eve_name like ? ");
 		}
 		
-		if(eveStartDate != null){
-			sqlBuffer.append("and eve_start_date like ? ");
+		if(month != null && year != null){
+			sqlBuffer.append("and MONTH(eve_start_date) = ? AND YEAR(eve_start_date) = ? ");
 		}
 		
 		if(eveStatus != null && !eveStatus.equals("")){
@@ -170,8 +170,10 @@ public class EventManager {
 				pstmt.setString(runningParam, "%"+eveName+"%");
 				runningParam += 1;
 			}
-			if(eveStartDate != null){
-				pstmt.setString(runningParam, "%"+dateFormat.format(eveStartDate));
+			if(month != null && year != null){
+				pstmt.setInt(runningParam, month.intValue());
+				runningParam += 1;
+				pstmt.setInt(runningParam, year.intValue());
 				runningParam += 1;
 			}
 			
@@ -250,7 +252,7 @@ public class EventManager {
 	public List<ProfileUserModel> getRegisterUser(Integer eveId){
 		
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("SELECT p.pro_fullname, p.pro_company_name, p.pro_email, p.pro_contact_no FROM event e ");
+		sqlBuffer.append("SELECT p.pro_title, p.pro_fullname, p.pro_company_name, p.pro_email, p.pro_contact_no, r.ree_lucky_no, r.ree_got_prize_flag FROM event e ");
 		sqlBuffer.append("INNER JOIN register_event r ON e.eve_id = r.ree_eve_id "); 
 		sqlBuffer.append("AND r.ree_eve_id = ? INNER JOIN profile_user p ON r.ree_pro_id = p.pro_id");
 		
@@ -265,10 +267,13 @@ public class EventManager {
 			resultList = new ArrayList();
 			while(results.next()){
 				user = new ProfileUserModel();
+				user.setProTitle(results.getString("pro_title"));
 				user.setProFullName(results.getString("pro_fullname"));
 				user.setProCompanyName(results.getString("pro_company_name"));
 				user.setProContactNo(results.getString("pro_contact_no"));
 				user.setProEmail(results.getString("pro_email"));
+				user.setReeLuckyNo(results.getInt("ree_lucky_no"));
+				user.setReeGotPrize(results.getString("ree_got_prize_flag"));
 				resultList.add(user);
 			}
 		

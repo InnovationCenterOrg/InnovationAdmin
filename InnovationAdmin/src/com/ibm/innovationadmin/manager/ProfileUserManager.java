@@ -77,25 +77,23 @@ public class ProfileUserManager {
 		
 	}
 	
-	public String createNewProfileUser(String proTitle, String proFirstName, String proLastName, String proFullName, String proCompanyName, String proContactNo, String proEmail, String proUsername, String proPassword, String proRole){
-		
-		ProfileUserModel profile = null;
+	public String createNewProfileUser(ProfileUserModel user){
 		
 		String sql = "insert into profile_user (pro_title, pro_firstname, pro_lastname, pro_fullname, pro_company_name, pro_contact_no, pro_email, pro_username, pro_password, pro_role, pro_create_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try{
 			log.info("START Create New ProfileUser");
 			connection = ds.getConnection();
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, proTitle.toUpperCase());
-			pstmt.setString(2, proFirstName.toUpperCase());
-			pstmt.setString(3, proLastName.toUpperCase());
-			pstmt.setString(4, proFullName.toUpperCase());
-			pstmt.setString(5, proCompanyName.toUpperCase());
-			pstmt.setString(6, proContactNo);
-			pstmt.setString(7, proEmail);
-			pstmt.setString(8, proUsername);
-			pstmt.setString(9, proPassword);
-			pstmt.setString(10, proRole);
+			pstmt.setString(1, user.getProTitle().toUpperCase());
+			pstmt.setString(2, user.getProFirstName().toUpperCase());
+			pstmt.setString(3, user.getProLastName().toUpperCase());
+			pstmt.setString(4, user.getProFullName().toUpperCase());
+			pstmt.setString(5, user.getProCompanyName().toUpperCase());
+			pstmt.setString(6, user.getProContactNo());
+			pstmt.setString(7, user.getProEmail());
+			pstmt.setString(8, user.getProUsername());
+			pstmt.setString(9, user.getProPassword());
+			pstmt.setString(10, user.getProRole());
 			pstmt.setString(11, dateFormat.format(new Date()));
 			
 			log.info("STATEMENT : "+pstmt.toString());
@@ -161,14 +159,14 @@ public class ProfileUserManager {
 			StringBuffer sqlBuffer = new StringBuffer();
 			sqlBuffer.append("select * from profile_user ");
 			if(keyword != null && !keyword.equals("")){
-				sqlBuffer.append("and pro_fullname like ? ");
+				sqlBuffer.append("where pro_fullname like ? ");
 			}
 			
 			try{
 				connection = ds.getConnection();
 				pstmt = connection.prepareStatement(sqlBuffer.toString());
 				if(keyword != null && !keyword.equals("")){
-					pstmt.setString(1, "%"+keyword+"%");
+					pstmt.setString(1, "%"+keyword.toUpperCase()+"%");
 				}
 
 				
