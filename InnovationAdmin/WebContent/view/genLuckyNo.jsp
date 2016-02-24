@@ -14,7 +14,7 @@
 						<div class="col-md-2">
 						</div>
 						<div class="col-md-8">
-							<h1 id="luckyRandom" align="center" style="font-size: 15em"></h1>
+							<h1 id="luckyRandom" align="center" style="font-size: 15em;"></h1>
 						</div>
 						<div class="col-md-2">
 						</div>
@@ -65,15 +65,18 @@ function getLucky(){
 		     // run number
 			     if(luckyList.length > 0){
 			    	 stop = true;
+			    	 document.getElementById("luckyRandom").setAttribute("style", "font-size: 15em;");
 			    	 startStop();
-			    	 run = setInterval(runRandom, 100);
 			    	 return;
 			     }else{
 			    	 stop = false;
-			    	 startStop();
-			    	 $('#luckyRandom').text('Not have registered customers.');
-			    	 return;
+			    	 document.getElementById("luckyRandom").setAttribute("style", "font-size: 5em;");
+			 		 $('#luckyRandom').text('Not have lucky draw.');
+			 		 $('#stopButton').disabled = true;	
+			 		 $('#gotPrizeButton').disabled = true;	
+			 		 $('#noShowButton').disabled = true;	
 			     }
+			     
 		    });
 }
 
@@ -102,14 +105,10 @@ function startStop(){
 			run = null;
 		}else{
 			$('#stopButton').text("STOP");
-			$('#gotPrizeButton').disabled = true;	
-			$('#noShowButton').disabled = true;	
+			document.getElementById("gotPrizeButton").setAttribute("disabled", "disabled");
+			document.getElementById("noShowButton").setAttribute("disabled", "disabled");
 			run = setInterval(runRandom, 100);
 		}
-	}else{
-		$('#stopButton').disabled = true;	
-		$('#gotPrizeButton').disabled = true;	
-		$('#noShowButton').disabled = true;	
 	}
 }
 

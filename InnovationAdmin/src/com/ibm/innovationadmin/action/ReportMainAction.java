@@ -74,7 +74,7 @@ public class ReportMainAction extends HttpServlet {
 				if(request.getParameter("page") != null){
 					page = Integer.parseInt(request.getParameter("page"));
 				}
-				List<EventModel> eventList = eventManager.getEventList(null, month, year, null);
+				List<EventModel> eventList = eventManager.getEventList(null, month, year, false);
 				request.setAttribute("month", month);
 				request.setAttribute("year", year);
 				
@@ -122,7 +122,7 @@ public class ReportMainAction extends HttpServlet {
 					request.setAttribute("endPage", endPage);
 				}
 				
-				List<EventModel> eventOption = eventManager.getEventList(null, null, null, null);
+				List<EventModel> eventOption = eventManager.getEventList(null, null, null, false);
 				request.setAttribute("eventOption", eventOption);
 				request.getRequestDispatcher("/view/eventDetailInfo.jsp").forward(request, response);
 			}
@@ -158,7 +158,7 @@ public class ReportMainAction extends HttpServlet {
 					request.setAttribute("endPage", endPage);
 				}
 				
-				List<EventModel> eventOption = eventManager.getEventList(null, null, null, null);
+				List<EventModel> eventOption = eventManager.getEventList(null, null, null, false);
 				request.setAttribute("eventOption", eventOption);
 				request.getRequestDispatcher("/view/eventWifiConnected.jsp").forward(request, response);
 				

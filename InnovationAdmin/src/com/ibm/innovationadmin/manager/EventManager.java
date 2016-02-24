@@ -144,7 +144,7 @@ public class EventManager {
 	
 	
 	//Search by crietria (eventName, eventStartDate, eventStatus)
-	public List<EventModel> getEventList(String eveName, Integer month, Integer year, String eveStatus){
+	public List<EventModel> getEventList(String eveName, Integer month, Integer year, Boolean isNotArchive){
 		List<EventModel> resultList = null;
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select * from event where eve_id <> 0 ");
@@ -156,8 +156,8 @@ public class EventManager {
 			sqlBuffer.append("and MONTH(eve_start_date) = ? AND YEAR(eve_start_date) = ? ");
 		}
 		
-		if(eveStatus != null && !eveStatus.equals("")){
-			sqlBuffer.append("and eve_status = ? ");
+		if(isNotArchive){
+			sqlBuffer.append("and eve_status != 'archive' ");
 		}
 		
 		sqlBuffer.append("order by eve_name, eve_start_date ");
@@ -175,10 +175,6 @@ public class EventManager {
 				runningParam += 1;
 				pstmt.setInt(runningParam, year.intValue());
 				runningParam += 1;
-			}
-			
-			if(eveStatus != null && !eveStatus.equals("")){
-				pstmt.setString(runningParam, eveStatus);
 			}
 			
 			ResultSet results = pstmt.executeQuery();

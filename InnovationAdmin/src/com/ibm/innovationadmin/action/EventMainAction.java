@@ -69,7 +69,7 @@ public class EventMainAction extends HttpServlet {
 			if(request.getParameter("page") != null){
 				page = Integer.parseInt(request.getParameter("page"));
 			}
-			List<EventModel> evnList = evnManager.getEventList(eveName, null, null, null);
+			List<EventModel> evnList = evnManager.getEventList(eveName, null, null, true);
 			
 			int size = CommonConstants.PAGING;
 			int from = Math.max(0,(page-1)*size);

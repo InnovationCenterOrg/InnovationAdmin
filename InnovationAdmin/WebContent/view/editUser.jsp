@@ -80,7 +80,6 @@
 										<option selected="selected" value="MR">MR</option>
 										<option value="MS">MS</option>
 										<option value="MRS">MRS</option>
-										<option value="ETC">ETC</option>
 									</select>
 								</div>
 							</div>

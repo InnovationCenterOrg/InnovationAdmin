@@ -122,24 +122,41 @@
 					</table>
 					<div class='row'>
 						<c:if test="${event.eveStatus == 'active' }">
-							<div class='col-md-3 text-center'></div>
-							<div class='col-md-2 text-center'>
-								<button type="button" class="btn btn-primary btn-block" onclick="edit(${event.eveId})">
-									<i class="glyphicon glyphicon-pencil"></i> Edit
-								</button>
-							</div>
-							<div class='col-md-2 text-center'>
-								<button type="button" class="btn btn-primary btn-block" id="genQR" data-link="${event.eveId }">
-									<i class="glyphicon glyphicon-qrcode"></i> Gen QR Code
-								</button>
-	
-							</div>
-							<div class='col-md-2 text-center'>
-								<button type="button" class="btn btn-primary btn-block"  data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
-									<i class="glyphicon glyphicon-gift"></i> Gen Lucky Draw
-								</button>
-							</div>
-							<div class='col-md-3 text-center'></div>
+							<c:if test="${event.eveRegisterUser > 0 }">
+								<div class='col-md-3 text-center'></div>
+								<div class='col-md-2 text-center'>
+									<button type="button" class="btn btn-primary btn-block" onclick="edit(${event.eveId})">
+										<i class="glyphicon glyphicon-pencil"></i> Edit
+									</button>
+								</div>
+								<div class='col-md-2 text-center'>
+									<button type="button" class="btn btn-primary btn-block" id="genQR" data-link="${event.eveId }">
+										<i class="glyphicon glyphicon-qrcode"></i> Gen QR Code
+									</button>
+		
+								</div>
+								<div class='col-md-2 text-center'>
+									<button type="button" class="btn btn-primary btn-block"  data-event-id="${event.eveId }" data-toggle="modal" data-target="#luckyDrawModal">
+										<i class="glyphicon glyphicon-gift"></i> Gen Lucky Draw
+									</button>
+								</div>
+								<div class='col-md-3 text-center'></div>
+							</c:if>
+							<c:if test="${event.eveRegisterUser <= 0 }">
+								<div class='col-md-4 text-center'></div>
+								<div class='col-md-2 text-center'>
+									<button type="button" class="btn btn-primary btn-block" onclick="edit(${event.eveId})">
+										<i class="glyphicon glyphicon-pencil"></i> Edit
+									</button>
+								</div>
+								<div class='col-md-2 text-center'>
+									<button type="button" class="btn btn-primary btn-block" id="genQR" data-link="${event.eveId }">
+										<i class="glyphicon glyphicon-qrcode"></i> Gen QR Code
+									</button>
+		
+								</div>
+								<div class='col-md-4 text-center'></div>
+							</c:if>
 						</c:if>
 					</div>
 					<div class='col-sm-9'>

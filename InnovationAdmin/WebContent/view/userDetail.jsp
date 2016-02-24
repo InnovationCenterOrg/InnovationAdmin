@@ -138,7 +138,7 @@
 			var msg = '${msg}'
 			console.log(msg);
 			if(msg){
-				alert('msg);
+				alert(msg);
 			}
 		};
 	
