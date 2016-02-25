@@ -70,11 +70,8 @@ function getLucky(){
 			    	 return;
 			     }else{
 			    	 stop = false;
-			    	 document.getElementById("luckyRandom").setAttribute("style", "font-size: 5em;");
-			 		 $('#luckyRandom').text('Not have lucky draw.');
-			 		 $('#stopButton').disabled = true;	
-			 		 $('#gotPrizeButton').disabled = true;	
-			 		 $('#noShowButton').disabled = true;	
+			    	 startStop();
+			    	 return;	
 			     }
 			     
 		    });
@@ -109,6 +106,12 @@ function startStop(){
 			document.getElementById("noShowButton").setAttribute("disabled", "disabled");
 			run = setInterval(runRandom, 100);
 		}
+	}else{
+		 document.getElementById("luckyRandom").setAttribute("style", "font-size: 5em;");
+		 $('#luckyRandom').text('Not have lucky draw.');
+		 document.getElementById("stopButton").setAttribute("disabled", "disabled");
+		 document.getElementById("gotPrizeButton").setAttribute("disabled", "disabled");
+		 document.getElementById("noShowButton").setAttribute("disabled", "disabled");
 	}
 }
 
