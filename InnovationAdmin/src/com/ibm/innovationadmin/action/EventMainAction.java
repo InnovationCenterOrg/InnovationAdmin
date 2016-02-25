@@ -178,10 +178,10 @@ public class EventMainAction extends HttpServlet {
 			
 			if(status.equals("Y")){
 				luckyStatus = "GOT PRIZE";
-				// update table register_event
-				registerEventManager.updateLuckyStatus(reeId, status);
 			}
 			
+			// update table register_event
+			registerEventManager.updateLuckyStatus(reeId, status);
 			// set object
 			RegisterEventModel ree = registerEventManager.getReeById(reeId);
 			// insert table luckydraw

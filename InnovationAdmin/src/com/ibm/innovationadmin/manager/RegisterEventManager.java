@@ -139,7 +139,7 @@ public class RegisterEventManager {
 
 	public List<RegisterEventModel> getListByEveId(Integer eveId){
 	List<RegisterEventModel> resultList = null;
-	String sql = "select * from register_event where ree_eve_id = ? and ree_got_prize_flag = 'N' and ree_lucky_no <> 0";
+	String sql = "select * from register_event where ree_eve_id = ? and ree_got_prize_flag = 'W' and ree_lucky_no <> 0";
 	try{
 		connection = ds.getConnection();
 		pstmt = connection.prepareStatement(sql);
