@@ -140,7 +140,76 @@ public class EventManager {
 	}
 	
 	
+
 	
+	
+	//Search by crietria (eventName, eventStartDate, eventStatus)
+	public List<EventModel> getEventList(String eveName, Date eveStartDate, String eveStatusIgnore){
+		List<EventModel> resultList = null;
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("select * from event where eve_id <> 0 ");
+		if(eveName != null && !eveName.equals("")){
+			sqlBuffer.append("and eve_name like ? ");
+		}
+		
+		if(eveStartDate != null){
+			sqlBuffer.append("and eve_start_date like ? ");
+		}
+		
+		if(eveStatusIgnore != null && !eveStatusIgnore.equals("")){
+			sqlBuffer.append("and eve_status <> ? ");
+		}
+		
+		sqlBuffer.append("order by eve_name, eve_start_date ");
+		log.info(sqlBuffer+"");
+		try{
+			connection = ds.getConnection();
+			pstmt = connection.prepareStatement(sqlBuffer.toString());
+			int runningParam = 1;
+			if(eveName != null && !eveName.equals("")){
+				pstmt.setString(runningParam, "%"+eveName+"%");
+				runningParam += 1;
+			}
+			if(eveStartDate != null){
+				pstmt.setString(runningParam, "%"+dateFormat.format(eveStartDate));
+				runningParam += 1;
+			}
+			
+			if(eveStatusIgnore != null && !eveStatusIgnore.equals("")){
+				pstmt.setString(runningParam, eveStatusIgnore);
+			}
+			
+			ResultSet results = pstmt.executeQuery();
+			EventModel event = null;
+			resultList = new ArrayList();
+			while(results.next()){
+				event = new EventModel();
+				event.setEveId(results.getInt("eve_id"));
+				event.setEveName(results.getString("eve_name"));
+				event.setEveDescription(results.getString("eve_description"));
+				event.setEveLocation(results.getString("eve_location"));
+				event.setEveStartDate(dateTimeFormat.parse(results.getString("eve_start_date")));
+				event.setEveEndDate(dateTimeFormat.parse(results.getString("eve_end_date")));
+				event.setEvePicturePath(results.getString("eve_picture_path"));
+				event.setEveStatus(results.getString("eve_status"));
+				event.setEveCreateDate(dateTimeFormat.parse(results.getString("eve_create_date")));
+				event.setEveUpdateDate(dateTimeFormat.parse(results.getString("eve_update_date")));
+				event.setEveCancelRemark(results.getString("eve_cancel_remark"));
+				event.setEveRegisterUser(results.getInt("eve_register_user"));
+				resultList.add(event);
+			}
+			connection.close();
+			return resultList;
+			
+		}catch(SQLException e1){
+			log.info("SQL ERROR : "+e1.getMessage());
+		}catch(Exception e2){
+			log.info("ERROR : "+e2.getMessage());
+		}
+		
+		return resultList;
+	}
+
 	
 	
 	//Search by crietria (eventName, eventStartDate, eventStatus)

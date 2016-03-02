@@ -1,0 +1,16 @@
+.controls td{padding-right:10px;}
+.controls ul{list-style-type:none;}
+.controls a{text-decoration: underline;}
+
+.button{display: block;	width: 30px;height: 29px;text-indent: -9999px;	left: 0px;outline: none; float:left;}
+#play{	background-image: url(../img/play.png);	}
+#play:hover{background: transparent url(../img/play_hover.png) bottom left no-repeat;}
+
+#stop{	background-image: url(../img/stop.png);	}
+#stop:hover{background: transparent url(../img/stop_hover.png) bottom left no-repeat;}
+
+#pause{	background-image: url(../img/pause.png);	}
+#pause:hover{background: transparent url(../img/pause_hover.png) bottom left no-repeat;}
+
+#pause3s{width: 90px;background-image: url(../img/pause3s.png);	}
+#pause3s:hover{background: transparent url(../img/pause3s_hover.png) bottom left no-repeat;}

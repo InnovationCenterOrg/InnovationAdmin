@@ -1,0 +1,130 @@
+.containercloud {
+	position: absolute;
+	width: 550px;
+	height: 550px;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+#mycloud {
+	width: 550px;
+	height: 550px;
+}
+
+#mycloud a {
+	text-decoration: none;
+}
+
+#mycloud li {
+	font-size: 40px;
+	list-style-type: none;
+	cursor: pointer;
+}
+
+#mycloud li img {
+	border-radius: 20%;
+	border: 2px solid #FFFFFF;
+}
+
+#mycloud li:hover {
+	font-size: 50px;
+}
+
+* {
+	box-sizing: bordex-box;
+	font-family: sans-serif;
+}
+
+h1 {
+	margin: 30px 0;
+	text-align: center;
+	text-transform: uppercase;
+	/*color: #2980b9;*/
+	color: #FFFFFF;
+	font-size: 2.0em;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+	background-image: -webkit-linear-gradient(#002e4b, #0081b6);
+	background-image: -moz-linear-gradient(#002e4b, #0081b6);
+	background-image: -o-linear-gradient(#002e4b, #0081b6);
+	background-image: linear-gradient(#002e4b, #0081b6);
+}
+
+.male {
+	position: absolute;
+	height: 70px;
+	width: 100px;
+	bottom: 20px;
+	left: 20px;
+	background-image: url("/images/img_male.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+
+.female {
+	position: absolute;
+	height: 70px;
+	width: 100px;
+	bottom: 20px;
+	left: 140px;
+	background-image: url("/images/img_female.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+
+.apple {
+	position: absolute;
+	height: 70px;
+	width: 100px;
+	bottom: 20px;
+	right: 20px;
+	background-image: url("/images/img_apple.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+
+.android {
+	position: absolute;
+	height: 70px;
+	width: 100px;
+	bottom: 20px;
+	right: 140px;
+	background-image: url("/images/img_android.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+
+.windows {
+	position: absolute;
+	height: 70px;
+	width: 100px;
+	bottom: 20px;
+	right: 260px;
+	background-image: url("/images/img_windows.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+
+.label {
+	position: absolute;
+	color: #FFFFFF;
+	font-size: 1.2em;
+	top: 40%;
+	right: 15%;
+}

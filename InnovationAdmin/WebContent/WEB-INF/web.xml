@@ -31,6 +31,10 @@
 	<servlet>
 	<servlet-name>DashboardMainAction</servlet-name>
 		<servlet-class>com.ibm.innovationadmin.action.DashboardMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>DashboardDetailAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.DashboardDetailAction</servlet-class>
 	</servlet>	
 	<servlet>	
 	<servlet-name>ReportMainAction</servlet-name>
@@ -63,6 +67,10 @@
 	<servlet-mapping>
 	<servlet-name>DashboardMainAction</servlet-name>
 		<url-pattern>/DashboardMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>DashboardDetailAction</servlet-name>
+		<url-pattern>/DashboardDetailAction</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 	<servlet-name>ReportMainAction</servlet-name>

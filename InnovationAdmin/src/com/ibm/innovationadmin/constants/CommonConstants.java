@@ -23,4 +23,11 @@ public class CommonConstants {
 	public static final int PAGING = 20;
 	
 	public static final String DEFAULT_PASSWORD = "P@ssw0rd";
+	
+	public static final String FB_GENDER_MALE = "male";
+	public static final String FB_GENDER_FEMALE = "female";
+	
+	public static final String DEVICE_OS_WINDOWS = "Windows";
+	public static final String DEVICE_OS_ANDROID = "Android";
+	public static final String DEVICE_OS_APPLE = "Apple";
 }

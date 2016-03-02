@@ -2,6 +2,7 @@ package com.ibm.innovationadmin.action;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,8 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.ibm.innovationadmin.constants.CommonConstants;
 import com.ibm.innovationadmin.manager.AuthenticationManager;
+import com.ibm.innovationadmin.manager.EventManager;
 import com.ibm.innovationadmin.manager.ProfileUserManager;
+import com.ibm.innovationadmin.model.EventModel;
 import com.ibm.innovationadmin.model.ProfileUserModel;
 
 public class DashboardMainAction extends HttpServlet {
@@ -29,7 +33,7 @@ public class DashboardMainAction extends HttpServlet {
 	DataSource ds;
 	
 	@EJB
-	private ProfileUserManager profileUserManager;
+	private EventManager evnManager;
 	
 	private static final Logger log = Logger.getLogger(DashboardMainAction.class.getName()); 
 
@@ -43,11 +47,17 @@ public class DashboardMainAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("TEST DOPOST");
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			List<EventModel> evnList = evnManager.getEventList(null, null, CommonConstants.EVENT_STATUS_ACTIVE);
+			request.setAttribute("evnList", evnList);
 		
-		String forwardUrl = "/view/dashboard.jsp";
+			String forwardUrl = "/view/dashboard.jsp";
 
-		request.getRequestDispatcher(forwardUrl).forward(request, response);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
 		
+		}
 	}
 		
 }

@@ -47,7 +47,7 @@ public class MerakiDeviceManager {
 		Set<String> mac = new HashSet<String>();
 
 		for( MerakiModel model : userList ) {
-		    if( mac.add( model.getMedMAC()) ) {
+		    if( mac.add( model.getMedClientMac()) ) {
 		        result.add( model );
 		    }
 		}
@@ -87,11 +87,11 @@ public class MerakiDeviceManager {
 			resultList = new ArrayList();
 			while(results.next()){
 				med = new MerakiModel();
-				med.setMedFBName(results.getString("MED_FB_NAME"));
-				med.setMedFBEmail(results.getString("MED_FB_EMAIL"));
-				med.setMedFBGender(results.getString("MED_FB_GENDER"));
-				med.setMedOS(results.getString("MED_OS"));
-				med.setMedMAC(results.getString("MED_CLIENT_MAC"));
+				med.setMedFbName(results.getString("MED_FB_NAME"));
+				med.setMedFbEmail(results.getString("MED_FB_EMAIL"));
+				med.setMedFbGender(results.getString("MED_FB_GENDER"));
+				med.setMedOs(results.getString("MED_OS"));
+				med.setMedClientMac(results.getString("MED_CLIENT_MAC"));
 				resultList.add(med);
 			}
 		
