@@ -107,11 +107,11 @@
 					<c:if test="${not empty userList}">
 						<c:forEach var="user" items="${userList}">
 							<tr>
-								<td><div align="center">${user.medFBName }</div></td>
-								<td><div align="center">${user.medFBEmail }</div></td>
-								<td><div align="center">${user.medFBGender }</div></td>
-								<td><div align="center">${user.medOS }</div></td>
-								<td><div align="center">${user.medMAC }</div></td>
+								<td><div align="center">${user.medFbName }</div></td>
+								<td><div align="center">${user.medFbEmail }</div></td>
+								<td><div align="center">${user.medFbGender }</div></td>
+								<td><div align="center">${user.medOs }</div></td>
+								<td><div align="center">${user.medClientMac }</div></td>
 							</tr>
 						</c:forEach>
 					</c:if>

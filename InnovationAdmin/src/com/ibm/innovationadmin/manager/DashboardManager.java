@@ -46,27 +46,11 @@ public class DashboardManager {
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select med_client_mac, MAX(med_fb_id) as fb_id, med_fb_name, med_fb_gender, med_os from meraki_device ");
 		// get all devices that connected fb in the event period.
-		/*
-		if(eveName != null && !eveName.equals("")){
-			sqlBuffer.append("and eve_name like ? ");
-		}
-		
-		if(eveStartDate != null){
-			sqlBuffer.append("and eve_start_date like ? ");
-		}
-		
-		if(eveStatus != null && !eveStatus.equals("")){
-			sqlBuffer.append("and eve_status = ? ");
-		}*/
+
 		sqlBuffer.append("where med_client_mac != '' and med_fb_id != '' ");
 		if(eveStartDate != null && eveEndDate != null){
 			sqlBuffer.append("and med_create_date between ? and ? ");
-		//	between (select eve_start_date from event where eve_id = 1) and (select eve_end_date from event where eve_id = 1)
 		}
-		/*
-		if(eveEndDate != null){
-			sqlBuffer.append("and med_create_date < ? ");
-		}*/
 		sqlBuffer.append("group by med_client_mac, med_fb_name, med_fb_gender, med_os ");
 		sqlBuffer.append("order by fb_id ");
 		log.info(sqlBuffer+"");
@@ -78,20 +62,6 @@ public class DashboardManager {
 				pstmt.setDate(1, new java.sql.Date(eveStartDate.getTime()));
 				pstmt.setDate(2, new java.sql.Date(eveEndDate.getTime()));
 			}
-			/*
-			if(eveName != null && !eveName.equals("")){
-				pstmt.setString(runningParam, "%"+eveName+"%");
-				runningParam += 1;
-			}
-			if(eveStartDate != null){
-				pstmt.setString(runningParam, "%"+dateFormat.format(eveStartDate));
-				runningParam += 1;
-			}
-			
-			if(eveStatus != null && !eveStatus.equals("")){
-				pstmt.setString(runningParam, eveStatus);
-			}
-			*/
 			ResultSet results = pstmt.executeQuery();
 			MerakiModel device = null;
 			resultList = new ArrayList();
@@ -118,19 +88,7 @@ public class DashboardManager {
 		List<MerakiModel> resultList = null;
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select med_client_mac, MAX(med_fb_id) as fb_id, med_fb_name, med_fb_gender, med_os from meraki_device ");
-		// get all devices that connected fb in the event period.
-		/*
-		if(eveName != null && !eveName.equals("")){
-			sqlBuffer.append("and eve_name like ? ");
-		}
-		
-		if(eveStartDate != null){
-			sqlBuffer.append("and eve_start_date like ? ");
-		}
-		
-		if(eveStatus != null && !eveStatus.equals("")){
-			sqlBuffer.append("and eve_status = ? ");
-		}*/
+
 		sqlBuffer.append("where med_client_mac != '' and med_fb_id != '' ");
 		if(gender != null && !gender.equals("")){
 			sqlBuffer.append("and med_fb_gender = ? ");
@@ -158,10 +116,7 @@ public class DashboardManager {
 			while(results.next()){
 				device = new MerakiModel();
 				device.setMedFbId(results.getString("fb_id"));
-				//device.setMedFbName(results.getString("med_fb_name"));
 				device.setMedClientMac(results.getString("med_client_mac"));
-				//device.setMedFbGender(results.getString("med_fb_gender"));
-				//log.info("Facebook Name : "+device.getMedFbName());
 				resultList.add(device);
 			}
 			connection.close();
@@ -180,19 +135,7 @@ public class DashboardManager {
 		List<MerakiModel> resultList = null;
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select med_client_mac, MAX(med_fb_id) as fb_id, med_fb_name, med_fb_gender, med_os from meraki_device ");
-		// get all devices that connected fb in the event period.
-		/*
-		if(eveName != null && !eveName.equals("")){
-			sqlBuffer.append("and eve_name like ? ");
-		}
-		
-		if(eveStartDate != null){
-			sqlBuffer.append("and eve_start_date like ? ");
-		}
-		
-		if(eveStatus != null && !eveStatus.equals("")){
-			sqlBuffer.append("and eve_status = ? ");
-		}*/
+
 		sqlBuffer.append("where med_client_mac != '' and med_fb_id != '' ");
 		if(os != null && !os.equals("")){
 			sqlBuffer.append("and med_os = ? ");
@@ -220,10 +163,7 @@ public class DashboardManager {
 			while(results.next()){
 				device = new MerakiModel();
 				device.setMedFbId(results.getString("fb_id"));
-			//	device.setMedFbName(results.getString("med_fb_name"));
 				device.setMedClientMac(results.getString("med_client_mac"));
-			//	device.setMedOs(results.getString("med_os"));
-			//	log.info("Facebook Name : "+device.getMedFbName());
 				resultList.add(device);
 			}
 			connection.close();

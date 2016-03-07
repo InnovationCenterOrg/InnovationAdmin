@@ -2,7 +2,9 @@ package com.ibm.innovationadmin.action;
 
 import java.io.Console;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +42,7 @@ public class DashboardDetailAction extends HttpServlet {
 	private DashboardManager dashboardManager;
 	@EJB
 	private EventManager eventManager;
-	public static final long HOUR = 3600 * 1000;
+	SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private static final Logger log = Logger
 			.getLogger(DashboardDetailAction.class.getName());
@@ -65,13 +67,20 @@ public class DashboardDetailAction extends HttpServlet {
 			String forwardUrl = "";
 			EventModel event = eventManager.getEventById(Integer
 					.valueOf(eventId));
+			Calendar cal = Calendar.getInstance();
+			
+			cal.setTime(event.getEveStartDate());
+			cal.add(Calendar.HOUR_OF_DAY, -1);
+			Date newStartDateTime = cal.getTime();
+			
+			cal.setTime(event.getEveEndDate());
+			cal.add(Calendar.HOUR_OF_DAY, 1);
+			Date newEndDateTime = cal.getTime();
+			
+			log.info("Start = "+dateTimeFormat.format(newStartDateTime));
+			log.info("End = "+dateTimeFormat.format(newEndDateTime));
+			
 
-			log.info("start date " + event.getEveStartDate().toString());
-			log.info("end date " + event.getEveEndDate().toString());
-			Date newStartDateTime = new Date(event.getEveStartDate().getTime()
-					+ 1 * HOUR);
-			Date newEndDateTime = new Date(event.getEveEndDate().getTime() + 1
-					* HOUR);
 			// log.info("new end date "+newDateTime.toString());
 			List<MerakiModel> deviceList = dashboardManager.getDeviceList(
 					newStartDateTime, newEndDateTime);
