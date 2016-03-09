@@ -1,0 +1,30 @@
+package com.ibm.innovationadmin.util;
+
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class CommonUtil {
+
+	private static final Logger log = Logger
+			.getLogger(CommonUtil.class.getName());
+
+	public boolean validateCurrentUser(HttpServletRequest request, HttpServletResponse response){
+		try{
+			if(request.getSession().getAttribute("name").equals(null) || request.getSession().getAttribute("name").equals("")){
+				return false;
+			}else{
+				return true;
+			}
+			
+			
+			
+		}catch(Exception e){
+			log.info("Error : "+e.getMessage());
+		}
+		return false;
+		
+	}
+	
+}

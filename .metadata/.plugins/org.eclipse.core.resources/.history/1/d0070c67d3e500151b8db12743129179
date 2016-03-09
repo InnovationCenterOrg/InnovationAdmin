@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>InnovationAdmin</display-name>
+	<servlet>
+	<servlet-name>Login</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.LoginAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>HelloAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.HelloAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>UserMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.UserMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>UserDetailAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.UserDetailAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>EventMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.EventMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>EventDetailAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.EventDetailAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>DashboardMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.DashboardMainAction</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>DashboardDetailAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.DashboardDetailAction</servlet-class>
+	</servlet>	
+	<servlet>	
+	<servlet-name>ReportMainAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.ReportMainAction</servlet-class>
+	</servlet>		
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HelloAction</servlet-name>
+		<url-pattern>/HelloAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserMainAction</servlet-name>
+		<url-pattern>/UserMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserDetailAction</servlet-name>
+		<url-pattern>/UserDetailAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EventMainAction</servlet-name>
+		<url-pattern>/EventMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EventDetailAction</servlet-name>
+		<url-pattern>/EventDetailAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>DashboardMainAction</servlet-name>
+		<url-pattern>/DashboardMainAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>DashboardDetailAction</servlet-name>
+		<url-pattern>/DashboardDetailAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>ReportMainAction</servlet-name>
+		<url-pattern>/ReportMainAction</url-pattern>
+	</servlet-mapping>
+				
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+	
+	
+</web-app>

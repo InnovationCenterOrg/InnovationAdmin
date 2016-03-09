@@ -9,6 +9,10 @@
 		<servlet-class>com.ibm.innovationadmin.action.LoginAction</servlet-class>
 	</servlet>
 	<servlet>
+	<servlet-name>LogoutAction</servlet-name>
+		<servlet-class>com.ibm.innovationadmin.action.LogoutAction</servlet-class>
+	</servlet>
+	<servlet>
 	<servlet-name>HelloAction</servlet-name>
 		<servlet-class>com.ibm.innovationadmin.action.HelloAction</servlet-class>
 	</servlet>
@@ -43,6 +47,10 @@
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogoutAction</servlet-name>
+		<url-pattern>/LogoutAction</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HelloAction</servlet-name>

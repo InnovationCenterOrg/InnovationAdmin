@@ -93,7 +93,7 @@ public class DashboardDetailAction extends HttpServlet {
 				int mod = 0;
 				for (int i = 0; i < remaining; i++) {
 					mod = i % 3;
-					others.add("/images/IBM" + mod + ".png");
+					others.add("${pageContext.request.contextPath}/images/IBM" + mod + ".png");
 				}
 
 			}

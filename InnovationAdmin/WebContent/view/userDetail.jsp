@@ -40,7 +40,7 @@
 					<li class='hidden-xs hidden-sm'>
 						<p class="navbar-text">Hi, ${name }</p>
 					</li>
-					<li><a href="/Login?logout">Logout</a></li>
+					<li><a href="${pageContext.request.contextPath}/LogoutAction">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

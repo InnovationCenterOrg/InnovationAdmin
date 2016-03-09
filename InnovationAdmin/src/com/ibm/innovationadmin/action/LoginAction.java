@@ -43,29 +43,23 @@ public class LoginAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.info("Login");
-		String logout = request.getParameter("logout");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		log.info("logout = "+logout);
-		if(logout != null){
-			request.getSession().setAttribute("name", null);
-			response.sendRedirect("Login");
-		}else{
-			if(!username.equals("") && !password.equals("")){
-				ProfileUserModel profile = profileUserManager.authen(username, password);
-				if(profile != null){
-					String fullName = profile.getProFullName();
-					request.getSession().setAttribute("name", fullName);
-					response.sendRedirect("EventMainAction");
-				}else{
-					request.setAttribute("error", "Username or password is incorrect!");
-					request.getRequestDispatcher("login.jsp").forward(request, response);
-				}
-				
+		if(!username.equals("") && !password.equals("")){
+			ProfileUserModel profile = profileUserManager.authen(username, password);
+			if(profile != null){
+				String fullName = profile.getProFullName();
+				request.getSession().setAttribute("name", fullName);
+				response.sendRedirect("EventMainAction");
 			}else{
-				request.setAttribute("error", "Please fill username and password!");
+				request.setAttribute("error", "Username or password is incorrect!");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
+			
+		}else{
+			request.setAttribute("error", "Please fill username and password!");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
+		
 	}
 }
