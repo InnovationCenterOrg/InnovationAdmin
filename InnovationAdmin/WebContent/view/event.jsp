@@ -231,7 +231,7 @@
 			imgWindow.document.write('<html><head><title>QR Code</title></head><body></body></html>');
 
 			var img = imgWindow.document.createElement('img');
-			img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=innovationadmin.eu-gb.mybluemix.net/EventDetailAction?eventId=' + evnid;
+			img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=innovationcustomer.eu-gb.mybluemix.net/InnovationCustomer?eveId=' + evnid;
 			imgWindow.document.body.appendChild(img);
 			imgWindow.document.close();
 		}
