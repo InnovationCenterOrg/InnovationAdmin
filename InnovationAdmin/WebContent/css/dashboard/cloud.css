@@ -67,7 +67,7 @@ body {
 	width: 100px;
 	bottom: 20px;
 	left: 20px;
-	background-image: url("/images/img_male.png");
+	background-image: url("https://dl.dropboxusercontent.com/s/p5trjtakwaatltd/img_male.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 100% auto;
@@ -79,7 +79,7 @@ body {
 	width: 100px;
 	bottom: 20px;
 	left: 140px;
-	background-image: url("/images/img_female.png");
+	background-image: url("https://dl.dropboxusercontent.com/s/0njy1j9m0fk3dqh/img_female.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 100% auto;
@@ -91,7 +91,7 @@ body {
 	width: 100px;
 	bottom: 20px;
 	right: 20px;
-	background-image: url("/images/img_apple.png");
+	background-image: url("https://dl.dropboxusercontent.com/s/5ndyewsgqg876sq/img_apple.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 100% auto;
@@ -103,11 +103,12 @@ body {
 	width: 100px;
 	bottom: 20px;
 	right: 140px;
-	background-image: url("/images/img_android.png");
+	background-image: url("https://dl.dropboxusercontent.com/s/0ydolnijmysemf5/img_android.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 }
+
 
 .windows {
 	position: absolute;
@@ -115,7 +116,7 @@ body {
 	width: 100px;
 	bottom: 20px;
 	right: 260px;
-	background-image: url("/images/img_windows.png");
+	background-image: url("https://dl.dropboxusercontent.com/s/8889oedbu359v9r/img_windows.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 100% auto;

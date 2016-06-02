@@ -1,0 +1,623 @@
+* {
+  box-sizing: bordex-box;
+  font-family: sans-serif;
+
+}
+h1 {
+  margin: 30px 0;
+  text-align: center;
+  text-transform: uppercase;
+  color: #01B2DE;
+  font-size: 2.0em;
+}
+body {
+  background: #04475c;
+}
+.artboard {
+  width: 800px;
+  height: 600px;
+  color: #eee;
+  border: 20px solid #fff;
+  margin: 50px auto;
+  background: #04475c;
+  box-shadow: 0px 3px 60px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.artbackground {
+  background-attachment: fixed;
+  width:100%;
+  height:90%;
+  left:0px;
+  top:0px;
+  padding: 0px;
+  background: #04475c;
+  position: absolute;
+}
+
+.innerlayer {
+  background-attachment: fixed;
+  width:80%;
+  height:100%;
+
+  background: #04475c;
+  position: relative;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.ibmlogo {
+  background-image: url("/images/20120120_ibm_logo.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  height: 100px;
+  width: 100px;
+  right: 4%;
+  top: -2%;
+  position: absolute;
+  
+
+}
+
+.ibmworld {
+
+    background-attachment: inherit;
+    background-image: url("/images/IBM Innovation CenterLogo.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    bottom: 0;
+    height: 420px;
+    left: 50%;
+    margin: 0 auto;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 420px;
+}
+
+
+.planet {
+  width: 220px;
+  height: 220px;
+  left: 290px;
+  top: 190px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  background: #fdc43e;
+  border: 8px solid #0b303f;
+}
+.planet-shadow {
+  width: 220px;
+  height: 220px;
+  top: 0px;
+  left: 2px;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: -20px 0px 0px rgba(249,126,43,0.9) inset, -45px 0px 5px rgba(249,126,43,0.2) inset, 25px 0px 0px rgba(249,126,43,0.1) inset;
+  transform: rotate(40deg);
+}
+.line {
+  border: 8px solid #0b303f;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-color: #0b303f transparent transparent;
+  border-radius: 50%/30px 30px 8px 0px;
+  top: 25px;
+  left: 40px;
+  transform: rotate(-40deg);
+}
+.crater {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 50%;
+  background: #fdc43e;
+  box-shadow: -6px 2px 5px rgba(249,126,43,0.4) inset;
+  transform: rotate(45deg);
+}
+.crater-1 {
+  top: 100px;
+  left: 35px;
+}
+.crater-2 {
+  top: 65px;
+  left: 75px;
+}
+.crater-3 {
+  top: 45px;
+  left: 110px;
+}
+.crater-4 {
+  top: 40px;
+  left: 150px;
+}
+.crater-5 {
+  top: 80px;
+  left: 150px;
+}
+.crater-6 {
+  top: 100px;
+  left: 110px;
+}
+.crater-7 {
+  top: 150px;
+  left: 80px;
+}
+.crater-8 {
+  top: 130px;
+  left: 140px;
+}
+.ring-1 {
+  position: absolute;
+  width: 290px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 200%/250px 350px 0px 0px;
+  top: 250px;
+  left: 250px;
+  transform: rotate(150deg);
+  z-index: 100;
+}
+.borde-1 {
+  position: absolute;
+  width: 80px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 50%/110px 100px 0px 0px;
+  top: 200px;
+  left: 440px;
+  transform: rotate(45deg);
+}
+.ring-1 {
+  position: absolute;
+  width: 290px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 200%/250px 350px 0px 0px;
+  top: 250px;
+  left: 250px;
+  transform: rotate(150deg);
+  z-index: 100;
+}
+.borde-1 {
+  position: absolute;
+  width: 80px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 50%/110px 100px 0px 0px;
+  top: 200px;
+  left: 440px;
+  transform: rotate(45deg);
+}
+.borde-2 {
+  position: absolute;
+  width: 80px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 50%/110px 100px 0px 0px;
+  top: 285px;
+  left: 280px;
+  transform: rotate(-130deg);
+}
+.ring-2 {
+  position: absolute;
+  width: 290px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 200%/250px 350px 0px 0px;
+  top: 250px;
+  left: 250px;
+  transform: rotate(-160deg);
+  z-index: 100;
+}
+.borde-3 {
+  position: absolute;
+  width: 80px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 50%/110px 100px 0px 0px;
+  top: 285px;
+  left: 440px;
+  transform: rotate(95deg);
+}
+.borde-4 {
+  position: absolute;
+  width: 80px;
+  height: 100px;
+  border: 8px solid #0b303f;
+  border-color: #0b303f transparent transparent;
+  border-radius: 50%/110px 100px 0px 0px;
+  top: 215px;
+  left: 270px;
+  transform: rotate(-65deg);
+}
+.luna1 {
+  width: 15px;
+  height: 15px;
+  background: #fdc43e;
+  border: 8px solid #0b303f;
+  border-radius: 50px;
+  position: absolute;
+  top: 140px;
+  left: 450px;
+}
+.luna2 {
+  width: 40px;
+  height: 40px;
+  background: #3eb4c1;
+  border: 8px solid #0b303f;
+  border-radius: 50px;
+  position: absolute;
+  top: 150px;
+  left: 500px;
+  box-shadow: -11px 0px 1px rgba(0,0,0,0.2) inset;
+  transform: rotate(40deg);
+}
+.stars {
+  width:100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-attachment: fixed;
+  position: absolute;
+}
+
+.stars div[class^="star"] {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  border-radius: 50%;
+
+  border: 5px solid #f67f47;
+}
+.stars div[class^="star"].blue {
+
+  border: 5px solid #3eb4c1;
+}
+.stars div[class^="star"].yellow {
+
+  border: 5px solid #fdc43e;
+}
+
+.stars div[class^="star"].green {
+  border: 5px solid #8EC63F;
+}
+.stars div[class^="star"].violet {
+  border: 5px solid #C64DA6;
+}
+
+
+/*
+.stars div[class^="star"]:before,
+.stars div[class^="star"]:after {
+  content: "";
+  background: #f67f47;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.stars div[class^="star"]:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.stars div[class^="star"].blue:before,
+.stars div[class^="star"].blue:after {
+  background: #3eb4c1;
+}
+.stars div[class^="star"].yellow:before,
+.stars div[class^="star"].yellow:after {
+  background: #fdc43e;
+}*/
+.stars div[class^="star"].med {
+  transform: scale(0.6);
+}
+.stars div[class^="star"].small {
+  transform: scale(0.4);
+}
+.star1 {
+  top: 9%;
+  left: 9%;
+}
+.star2 {
+  top: 52%;
+  left: 80%;
+}
+.star3 {
+  top: 65%;
+  left: 27%;
+}
+.star4 {
+  top: 30%;
+  left: 80%;
+}
+
+.star5 {
+
+  top: 94%;
+  left: 51%;
+}
+.star6 {
+  top: 35%;
+  left: 14%;
+}
+.star7 {
+  top: 8%;
+  left: 80%;
+}
+.star8 {
+  top: 69%;
+  left: 4%;
+}
+.star9 {
+    top: 55%;
+  left: 89%;
+
+
+}
+.star10 {
+  top: 15%;
+  left: 2%;
+}
+.star11 {
+
+    top: 85%;
+  left: 78%;
+}
+
+
+.star12 {
+  top: 91%;
+  left: 27%;
+
+}
+.star13 {
+  top: 20%;
+  left: 70%;
+
+}
+
+
+.star14 {
+  top: 90%;
+  left: 38%;
+}
+
+.star15 {
+  top: 74%;
+  left: 83%;
+
+}
+.star16 {
+  top: 9%;
+  left: 90%;
+
+}
+.star17 {
+  top: 62%;
+  left: 14%;
+
+}
+.star18 {
+  top: 42%;
+  left: 24%;
+
+}
+.star19 {
+  top: 94%;
+  left: 60%;
+}
+
+.star20 {
+  top: 15%;
+  left: 18%;
+}
+.star21 {
+  top: 45%;
+  left: 65%;
+}
+.star22 {
+  top: 65%;
+  left: 73%;
+}
+.star23 {
+  top: 42%;
+  left: 73%;
+
+}
+.star24 {
+  top: 83%;
+  left: 20%;
+}
+.star25 {
+  top: 30%;
+  left: 5%;
+}
+.star26 {
+  top: 52%;
+  left: 6%;
+}
+.star27 {
+  top: 93%;
+  left: 12%;
+}
+.star28 {
+  top: 78%;
+  left: 66%;
+}
+.star29 {
+  top: 30%;
+  left: 90%;
+}
+.star30 {
+  top: 90%;
+  left: 90%;
+
+}
+
+
+.pulse {
+  animation: pulse 10s linear infinite;
+}
+.pulse-1 {
+  animation: pulse 10s 3000ms linear infinite;
+}
+.pulse-2 {
+  animation: pulse 10s 6000ms linear infinite;
+}
+.pulse-3 {
+  animation: pulse 10s 9000ms linear infinite;
+}
+
+
+.stars div[class^="smallstar"] {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+.stars div[class^="smallstar"]:before,
+.stars div[class^="smallstar"]:after {
+  content: "";
+  background: #f67f47;
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.stars div[class^="smallstar"]:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.stars div[class^="smallstar"].blue:before,
+.stars div[class^="smallstar"].blue:after {
+  background-color: #3eb4c1; 
+}
+.stars div[class^="smallstar"].yellow:before,
+.stars div[class^="smallstar"].yellow:after
+{
+  background-color: #fdc43e; 
+}
+
+.stars div[class^="smallstar"].violet:before,
+.stars div[class^="smallstar"].violet:after {
+  background-color: #C64DA6;
+}
+.stars div[class^="smallstar"].green:before,
+.stars div[class^="smallstar"].green:after {
+  background-color: #8EC63F;
+}
+.smallstar1 {
+  top: 17%;
+  left: 76%;
+}
+.smallstar2 {
+  top: 2%;
+  left: 15%;
+}
+.smallstar3 {
+  top: 82%;
+  left: 34%;
+}
+.smallstar4 {
+  top: 65%;
+  left: 71%;
+}
+.smallstar5 {
+  top: 50%;
+  left: 2%;
+}
+.smallstar6 {
+  top: 50%;
+  left: 90%;
+}
+
+.smallstar7 {
+  top: 89%;
+  left: 3%;
+}
+.smallstar8 {
+  top: 80%;
+  left: 92%;
+}
+.smallstar9 {
+  top: 95%;
+  left: 69%;
+}
+
+.smallstar10 {
+  top: 59%;
+  left: 22%;
+}
+
+.smallstar11 {
+  top: 24%;
+  left: 86%;
+}
+.smallstar12 {
+  top: 20%;
+  left: 20%;
+}
+
+
+@-moz-keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

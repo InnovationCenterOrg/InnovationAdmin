@@ -24,7 +24,7 @@ public class ProfileUserManager {
 
 	private static final Logger log = Logger.getLogger(ProfileUserManager.class.getName()); 
 	
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	Connection connection = null;
@@ -45,8 +45,12 @@ public class ProfileUserManager {
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			
+			log.info("TEST 1");
+			
 			ResultSet result = pstmt.executeQuery();
 		
+			log.info("TEST 2 : "+connection);
+			
 			ProfileUserModel user = null;
 			while(result.next()){
 				log.info("FOUND User");

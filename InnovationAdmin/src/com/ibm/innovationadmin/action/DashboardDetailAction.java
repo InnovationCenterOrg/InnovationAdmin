@@ -35,7 +35,7 @@ public class DashboardDetailAction extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -8579213088672797881L;
 
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	@EJB
@@ -93,7 +93,13 @@ public class DashboardDetailAction extends HttpServlet {
 				int mod = 0;
 				for (int i = 0; i < remaining; i++) {
 					mod = i % 3;
-					others.add("${pageContext.request.contextPath}/images/IBM" + mod + ".png");
+					if(mod == 0){
+						others.add("https://dl.dropboxusercontent.com/s/adiuxo2zy5s1e61/IBM0.png");
+					}else if (mod==1){
+						others.add("https://dl.dropboxusercontent.com/s/d5vs0h3289vvpyh/IBM1.png");
+					}else{
+						others.add("https://dl.dropboxusercontent.com/s/9ztk6r8ke5xv62m/IBM2.png");
+					}
 				}
 
 			}

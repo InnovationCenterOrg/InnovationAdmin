@@ -29,7 +29,7 @@ import com.ibm.innovationadmin.model.RegisterEventModel;
 public class MerakiDeviceManager {
 	private static final Logger log = Logger.getLogger(MerakiDeviceManager.class.getName()); 
 	
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	Connection connection = null;

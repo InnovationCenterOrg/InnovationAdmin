@@ -4,6 +4,7 @@
 	<item value="InnovationAdminEAR" key="LASTEARNAME_"/>
 	<item value="false" key="J2EE_EXPORT_SOURCE"/>
 	<list key="J2EE_EXPORT_JST_EAR">
+		<item value="/Users/pannrays/IBM Project/WAR Folder/InnovationAdminEAR_Dash.ear"/>
 		<item value="/Users/pannrays/IBM Project/WAR Folder/InnovationAdminEAR.ear"/>
 	</list>
 	<list key="MRU_RUNTIME_STORE">

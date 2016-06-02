@@ -5,5 +5,9 @@
             <dependent-object>Module_1452191164116</dependent-object>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="SmartQWs.war" deploy-path="/" handle="module:/resource/SmartQWs/SmartQWs">
+            <dependent-object>Module_1463549857385</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

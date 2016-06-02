@@ -28,7 +28,7 @@ public class DashboardManager {
 
 	private static final Logger log = Logger.getLogger(DashboardManager.class.getName()); 
 	
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	Connection connection = null;

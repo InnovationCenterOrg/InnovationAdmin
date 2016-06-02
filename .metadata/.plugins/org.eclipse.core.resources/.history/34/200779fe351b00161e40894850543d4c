@@ -1,0 +1,125 @@
+package com.ibm.innovationadmin.action;
+
+import java.io.Console;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import com.ibm.innovationadmin.manager.AuthenticationManager;
+import com.ibm.innovationadmin.manager.ProfileUserManager;
+import com.ibm.innovationadmin.model.ProfileUserModel;
+import com.ibm.innovationadmin.constants.CommonConstants;
+
+public class UserMainAction extends HttpServlet {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8579213088672797881L;
+	
+	@Resource(lookup = "jdbc/BLUDB")
+	DataSource ds;
+	
+	@EJB
+	private ProfileUserManager profileUserManager;
+
+	private static final Logger log = Logger.getLogger(UserMainAction.class.getName()); 
+	private static final String forwardUrl = "/view/user.jsp";
+	private static final String editUser = "/view/editUser.jsp";
+	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		log.info("GET User List");
+		if(request.getSession().getAttribute("name") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else{
+			String keyword = request.getParameter("keyword"); 
+			int page = 1;
+			if(request.getParameter("page") != null){
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			List<ProfileUserModel> usrList = profileUserManager.getProfileUserList(keyword);
+			
+			int size = CommonConstants.PAGING;
+			int from = Math.max(0,(page-1)*size);
+			int to = Math.min(usrList.size(),page*size);
+			List<ProfileUserModel> usrPaging = usrList.subList(from, to);
+			
+			int endPage = (int) Math.ceil((double) usrList.size() / size);
+			
+			request.setAttribute("userList", usrPaging);
+			request.setAttribute("startPage", 1);
+			request.setAttribute("endPage", endPage);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
+		}
+	}
+	
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		log.info("POST User");
+		String actionType = request.getParameter("actionType");
+		
+		// if confirm reset password
+		if(actionType.equals("resetpwd")){
+			
+			int proId = Integer.parseInt(request.getParameter("proId"));
+			log.info("Reset PWD");
+			String res = profileUserManager.changePassword(proId, CommonConstants.DEFAULT_PASSWORD);
+			if(res.equals(CommonConstants.RETURN_SUCCESS)){
+				request.setAttribute("msg", "Reset password complete. Default password is "+CommonConstants.DEFAULT_PASSWORD);
+			}
+			doGet(request,response);
+			
+		}// if click add button
+		else if(actionType.equals("redirectAdd")){
+			
+			request.setAttribute("type", "Add");
+			request.getRequestDispatcher(editUser).forward(request, response);
+			
+		}// if submit form add user
+		else if(actionType.equals("add")){
+			
+			ProfileUserModel user = new ProfileUserModel();
+			user.setProTitle(request.getParameter("title"));
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String fullName = firstName +" "+ lastName;
+			user.setProFirstName(firstName);
+			user.setProLastName(lastName);
+			user.setProFullName(fullName);
+			user.setProCompanyName(request.getParameter("company"));
+			user.setProContactNo(request.getParameter("contactNo"));
+			user.setProEmail(request.getParameter("email"));
+			user.setProUsername(request.getParameter("username"));
+			user.setProPassword(request.getParameter("password"));
+			user.setProRole(request.getParameter("role"));
+			
+			if(profileUserManager.isDuplicateUsername(user.getProUsername())){
+				String res = profileUserManager.createNewProfileUser(user);
+				if(res.equals(CommonConstants.RETURN_SUCCESS)){
+					request.setAttribute("msg", "User detail is added successful.");
+				}
+				doGet(request, response);
+			}else{
+				request.setAttribute("type", "Add");
+				request.setAttribute("msg", "Username is duplicate!");
+				request.setAttribute("user", user);
+				request.getRequestDispatcher(editUser).forward(request, response);
+			}	
+		}
+		
+		
+	}
+		
+}

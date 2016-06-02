@@ -25,7 +25,7 @@ import com.ibm.innovationadmin.model.RegisterEventModel;
 public class LuckyDrawManager {
 	private static final Logger log = Logger.getLogger(LuckyDrawManager.class.getName()); 
 	
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	Connection connection = null;

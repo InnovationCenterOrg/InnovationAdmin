@@ -26,7 +26,7 @@ public class LoginAction extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -8579213088672797881L;
 
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 	
 	@EJB

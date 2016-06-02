@@ -17,7 +17,7 @@ public class AuthenticationManager {
 
 	private static final Logger log = Logger.getLogger(AuthenticationManager.class.getName()); 
 	
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	Connection connection = null;

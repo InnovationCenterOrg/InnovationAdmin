@@ -47,7 +47,7 @@ body {
 }
 
 .ibmlogo {
-  background-image: url("/images/20120120_ibm_logo.png");
+  background-image: url("https://dl.dropboxusercontent.com/s/80bo0mgqspdo2tt/20120120_ibm_logo.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -63,7 +63,7 @@ body {
 .ibmworld {
 
     background-attachment: inherit;
-    background-image: url("/images/IBM Innovation CenterLogo.png");
+    background-image: url("https://dl.dropboxusercontent.com/s/ifcuubmbo0nx34z/IBM%20Innovation%20CenterLogo.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 100% auto;

@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>InnovationAdmin</project>
+		<project>SmartQWs</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

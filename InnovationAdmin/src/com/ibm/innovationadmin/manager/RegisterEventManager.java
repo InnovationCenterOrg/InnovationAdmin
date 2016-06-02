@@ -27,7 +27,7 @@ public class RegisterEventManager {
 
 	private static final Logger log = Logger.getLogger(RegisterEventManager.class.getName()); 
 	
-	@Resource(lookup = "jdbc/InnovationDatabase")
+	@Resource(lookup = "jdbc/dashDB-mf")
 	DataSource ds;
 
 	Connection connection = null;
